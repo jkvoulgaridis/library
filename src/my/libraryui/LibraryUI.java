@@ -5,11 +5,6 @@
  */
 package my.libraryui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LibraryUI extends javax.swing.JFrame {
 
@@ -18,10 +13,9 @@ public class LibraryUI extends javax.swing.JFrame {
      */
     public LibraryUI() {
         initComponents();
-        this.setLocationRelativeTo(null); // Align window on screen center
-
+        this.setLocationRelativeTo(null); // Center main window on screen
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -296,6 +290,7 @@ public class LibraryUI extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu Views;

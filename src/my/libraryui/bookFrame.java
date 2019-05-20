@@ -4,16 +4,59 @@
  * and open the template in the editor.
  */
 package my.libraryui;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import my.libraryui.ConnectionDB;
 
 public class bookFrame extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form bookFrame
      */
     public bookFrame() {
+        db_con = new ConnectionDB();
+        
         initComponents();
         this.setLocationRelativeTo(null); // Align window on screen center
+        
+        try {
+            try {
+                Statement pubStmt = db_con.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                String query = "select pubName from Publisher";
+                ResultSet pubSet = pubStmt.executeQuery(query);
+                
+                while (pubSet.next()){
+                    publisherBox.addItem(pubSet.getString("pubName"));
+                }
+                
+            } catch (Exception ex) {
+
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
+                }
+            }
+            
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (result_set.first()) {
+                    isbn_book.setText(result_set.getString("ISBN"));
+                    title_book.setText(result_set.getString("title"));
+                    year_book.setText(result_set.getString("pubYear"));
+                    pages_book.setText(result_set.getString("numPages"));
+                    publisherBox.setSelectedItem(result_set.getString("pubName"));
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 
     /**
@@ -37,11 +80,10 @@ public class bookFrame extends javax.swing.JFrame {
         title_book = new javax.swing.JTextField();
         year_book = new javax.swing.JTextField();
         pages_book = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        publisher_book = new javax.swing.JList<>();
+        publisherBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         previousButton = new javax.swing.JButton();
-        nextButtons = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
@@ -87,12 +129,11 @@ public class bookFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Publisher");
 
-        publisher_book.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        publisherBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherBoxActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(publisher_book);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -107,18 +148,19 @@ public class bookFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pages_book)
+                    .addComponent(pages_book, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                     .addComponent(year_book, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(title_book)
                     .addComponent(isbn_book))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(jLabel6)))
-                .addGap(10, 10, 10))
+                        .addComponent(jLabel6)
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(publisherBox, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5});
@@ -146,16 +188,26 @@ public class bookFrame extends javax.swing.JFrame {
                             .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(publisherBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         previousButton.setText("Previous");
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousButtonActionPerformed(evt);
+            }
+        });
 
-        nextButtons.setText("Next");
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         insertButton.setText("Insert");
 
@@ -180,7 +232,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(previousButton)
                 .addGap(10, 10, 10)
-                .addComponent(nextButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(newButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 1, Short.MAX_VALUE)
@@ -196,7 +248,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, insertButton, newButton, nextButtons, previousButton, updateButton});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, insertButton, newButton, nextButton, previousButton, updateButton});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +256,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nextButtons)
+                        .addComponent(nextButton)
                         .addComponent(previousButton))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(updateButton)
@@ -243,10 +295,88 @@ public class bookFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         setVisible(false);  //Close bookFrame
     }//GEN-LAST:event_okButtonActionPerformed
 
+    
+    public void fetchResultSet() {
+        try {
+            
+            Statement stmt = db_con.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String query = "select * from Book";
+            result_set = stmt.executeQuery(query);
+            
+        } catch (Exception ex) {
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }
+    }
+    
+    
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (previousButton.isEnabled() == false)
+                    previousButton.setEnabled(true);
+                if (result_set.next()) {
+                    isbn_book.setText(result_set.getString("ISBN"));
+                    title_book.setText(result_set.getString("title"));
+                    year_book.setText(result_set.getString("pubYear"));
+                    pages_book.setText(result_set.getString("numPages"));
+                    publisherBox.setSelectedItem(result_set.getString("pubName"));
+                } else {
+                  //  result_set = null;
+                    nextButton.setEnabled(false);
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+         try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (nextButton.isEnabled() == false)
+                    nextButton.setEnabled(true);
+                
+                if (result_set.previous()) {
+                    isbn_book.setText(result_set.getString("ISBN"));
+                    title_book.setText(result_set.getString("title"));
+                    year_book.setText(result_set.getString("pubYear"));
+                    pages_book.setText(result_set.getString("numPages"));
+                    publisherBox.setSelectedItem(result_set.getString("pubName"));
+                } else {
+                    previousButton.setEnabled(false);
+                    //result_set = null;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void publisherBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherBoxActionPerformed
+       
+        
+        
+        
+    }//GEN-LAST:event_publisherBoxActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -282,6 +412,11 @@ public class bookFrame extends javax.swing.JFrame {
         });
     }
 
+    
+    final private ConnectionDB db_con;
+    private Statement stmt = null;
+    private ResultSet result_set = null;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
@@ -295,13 +430,12 @@ public class bookFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton newButton;
-    private javax.swing.JButton nextButtons;
+    private javax.swing.JButton nextButton;
     private javax.swing.JButton okButton;
     private javax.swing.JTextField pages_book;
     private javax.swing.JButton previousButton;
-    private javax.swing.JList<String> publisher_book;
+    private javax.swing.JComboBox<String> publisherBox;
     private javax.swing.JTextField title_book;
     private javax.swing.JButton updateButton;
     private javax.swing.JTextField year_book;
