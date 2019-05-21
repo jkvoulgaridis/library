@@ -55,6 +55,7 @@ public class bookFrame extends javax.swing.JFrame {
                     year_book.setText(result_set.getString("pubYear"));
                     pages_book.setText(result_set.getString("numPages"));
                     publisherBox.setSelectedItem(result_set.getString("pubName"));
+                    ISBN = isbn_book.getText();
                 }
             }
         } catch (Exception ex) {
@@ -220,6 +221,11 @@ public class bookFrame extends javax.swing.JFrame {
         });
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
 
@@ -348,6 +354,7 @@ public class bookFrame extends javax.swing.JFrame {
                     pages_book.setText(result_set.getString("numPages"));
                     publisherBox.setSelectedItem(result_set.getString("pubName"));
                     
+                    ISBN = isbn_book.getText();
                     insertButton.setEnabled(false);
 
                 } else {
@@ -376,6 +383,7 @@ public class bookFrame extends javax.swing.JFrame {
                     pages_book.setText(result_set.getString("numPages"));
                     publisherBox.setSelectedItem(result_set.getString("pubName"));
                     
+                    ISBN = isbn_book.getText();
                     insertButton.setEnabled(false);
 
                  } else {
@@ -400,7 +408,6 @@ public class bookFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        // TODO add your handling code here:
         String isbn=isbn_book.getText(), title=title_book.getText(), year=year_book.getText(), pages=pages_book.getText();
         String publisher = publisherBox.getSelectedItem().toString();
         
@@ -425,6 +432,27 @@ public class bookFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Inserted a book!" );
     }//GEN-LAST:event_insertButtonActionPerformed
 
+    
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        String isbn=isbn_book.getText(), title=title_book.getText(), year=year_book.getText(), pages=pages_book.getText();
+        String publisher = publisherBox.getSelectedItem().toString();
+        
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query= "update Book set ISBN=\""+isbn+"\",title=\""+title+"\",pubYear="+year+",numPages="+pages+",pubName=\""+publisher+"\" where ISBN=\""+ISBN+"\";";
+            stmt.executeUpdate(query);
+            
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+    }//GEN-LAST:event_updateButtonActionPerformed
+    }
     
     /**
      * @param args the command line arguments
@@ -465,6 +493,7 @@ public class bookFrame extends javax.swing.JFrame {
     final private ConnectionDB db_con;
 //    private Statement stmt = null;
     private ResultSet result_set = null;
+    private String ISBN = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
