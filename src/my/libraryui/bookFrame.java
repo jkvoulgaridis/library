@@ -228,6 +228,11 @@ public class bookFrame extends javax.swing.JFrame {
         });
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         okButton.setText("Close");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -453,6 +458,27 @@ public class bookFrame extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_updateButtonActionPerformed
     }
+    
+    
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String isbn=isbn_book.getText();
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query= "delete from Book where ISBN=\""+isbn+"\";";
+            stmt.executeUpdate(query);
+            
+            result_set = null;
+            nextButton.doClick();
+        }
+        catch (Exception ex) {
+            if (ex.toString().contains("delete")) {
+                JOptionPane.showMessageDialog(null, "Το βιβλίο είναι δανεισμένο από κάποιο μέλος.\n Δεν μπορεί να διαγραφεί!" );
+            }
+            else
+                JOptionPane.showMessageDialog(null, ex );
+        }                             
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
     
     /**
      * @param args the command line arguments
