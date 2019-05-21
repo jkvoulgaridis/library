@@ -24,7 +24,7 @@ public class ConnectionDB {
     
     private void ConnectToMysqlDatabase() {
         // Connection strings //
-        String mysql_url = "jdbc:mysql://192.168.1.25:3306/Library";
+        String mysql_url = "jdbc:mysql://127.0.0.1:3306/Library";
         String mysql_driver = "com.mysql.jdbc.Driver";
         String mysql_user = "root";
         String mysql_passwd = "manos1998";
