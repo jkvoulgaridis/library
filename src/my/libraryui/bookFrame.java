@@ -7,6 +7,7 @@ package my.libraryui;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import my.libraryui.ConnectionDB;
 
@@ -212,6 +213,11 @@ public class bookFrame extends javax.swing.JFrame {
         });
 
         insertButton.setText("Insert");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setText("Update");
 
@@ -382,10 +388,7 @@ public class bookFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_previousButtonActionPerformed
 
     private void publisherBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherBoxActionPerformed
-       
-        
-        
-        
+
     }//GEN-LAST:event_publisherBoxActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
@@ -395,6 +398,31 @@ public class bookFrame extends javax.swing.JFrame {
         year_book.setText("");
         pages_book.setText("");
     }//GEN-LAST:event_newButtonActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        // TODO add your handling code here:
+        String isbn=isbn_book.getText(), title=title_book.getText(), year=year_book.getText(), pages=pages_book.getText();
+        String publisher = publisherBox.getSelectedItem().toString();
+        
+        try {
+            String query = "insert into Book values (\"" +isbn+"\",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
+            PreparedStatement pstmt = db_con.connection.prepareStatement(query);
+
+            pstmt.executeUpdate();
+            
+        } catch (Exception ex) {
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }
+        
+        result_set = null;
+        JOptionPane.showMessageDialog(null, "Inserted a book!" );
+    }//GEN-LAST:event_insertButtonActionPerformed
 
     
     /**
@@ -434,7 +462,7 @@ public class bookFrame extends javax.swing.JFrame {
 
     
     final private ConnectionDB db_con;
-    private Statement stmt = null;
+//    private Statement stmt = null;
     private ResultSet result_set = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
