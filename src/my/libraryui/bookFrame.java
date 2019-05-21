@@ -378,7 +378,7 @@ public class bookFrame extends javax.swing.JFrame {
                     
                     insertButton.setEnabled(false);
 
-                } else {
+                 } else {
                     previousButton.setEnabled(false);
                 }
             }
@@ -405,12 +405,12 @@ public class bookFrame extends javax.swing.JFrame {
         String publisher = publisherBox.getSelectedItem().toString();
         
         try {
-            String query = "insert into Book values (\"" +isbn+"\",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
-            PreparedStatement pstmt = db_con.connection.prepareStatement(query);
-
-            pstmt.executeUpdate();
+            Statement stmt = db_con.connection.createStatement();
+            String query = "insert into Book values (" +isbn+",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
+            stmt.executeUpdate(query);
             
         } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
 
             try {
                 if (db_con.connection != null) {
@@ -421,6 +421,7 @@ public class bookFrame extends javax.swing.JFrame {
         }
         
         result_set = null;
+        newButton.doClick();
         JOptionPane.showMessageDialog(null, "Inserted a book!" );
     }//GEN-LAST:event_insertButtonActionPerformed
 
