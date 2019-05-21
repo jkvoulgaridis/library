@@ -28,6 +28,8 @@ public class bookFrame extends javax.swing.JFrame {
                 String query = "select pubName from Publisher";
                 ResultSet pubSet = pubStmt.executeQuery(query);
                 
+                insertButton.setEnabled(false);
+                
                 while (pubSet.next()){
                     publisherBox.addItem(pubSet.getString("pubName"));
                 }
@@ -223,6 +225,11 @@ public class bookFrame extends javax.swing.JFrame {
         });
 
         newButton.setText("New");
+        newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -334,6 +341,9 @@ public class bookFrame extends javax.swing.JFrame {
                     year_book.setText(result_set.getString("pubYear"));
                     pages_book.setText(result_set.getString("numPages"));
                     publisherBox.setSelectedItem(result_set.getString("pubName"));
+                    
+                    insertButton.setEnabled(false);
+
                 } else {
                   //  result_set = null;
                     nextButton.setEnabled(false);
@@ -359,9 +369,11 @@ public class bookFrame extends javax.swing.JFrame {
                     year_book.setText(result_set.getString("pubYear"));
                     pages_book.setText(result_set.getString("numPages"));
                     publisherBox.setSelectedItem(result_set.getString("pubName"));
+                    
+                    insertButton.setEnabled(false);
+
                 } else {
                     previousButton.setEnabled(false);
-                    //result_set = null;
                 }
             }
         } catch (Exception ex) {
@@ -375,6 +387,14 @@ public class bookFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_publisherBoxActionPerformed
+
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        insertButton.setEnabled(true);
+        isbn_book.setText("");
+        title_book.setText("");
+        year_book.setText("");
+        pages_book.setText("");
+    }//GEN-LAST:event_newButtonActionPerformed
 
     
     /**
