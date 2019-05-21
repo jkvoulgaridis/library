@@ -200,6 +200,11 @@ public class LibraryUI extends javax.swing.JFrame {
         Views.setText("Views");
 
         updateableMenuItem.setText("Updateable");
+        updateableMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateableMenuItemActionPerformed(evt);
+            }
+        });
         Views.add(updateableMenuItem);
 
         nonUpdateableMenuItem.setText("Non-updateable");
@@ -240,7 +245,7 @@ public class LibraryUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void nonUpdateableMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonUpdateableMenuItemActionPerformed
-        // TODO add your handling code here:
+        new BorrowedCountFrame().setVisible(true);
     }//GEN-LAST:event_nonUpdateableMenuItemActionPerformed
 
     private void bookMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookMenuItemActionPerformed
@@ -254,6 +259,10 @@ public class LibraryUI extends javax.swing.JFrame {
     private void publisherMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherMenuItemActionPerformed
         new publisherFrame().setVisible(true);
     }//GEN-LAST:event_publisherMenuItemActionPerformed
+
+    private void updateableMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateableMenuItemActionPerformed
+        new bookPositionFrame().setVisible(true);
+    }//GEN-LAST:event_updateableMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
