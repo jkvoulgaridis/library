@@ -152,6 +152,11 @@ public class memberFrame extends javax.swing.JFrame {
         previousButton.setText("Previous");
 
         nextButtons.setText("Next");
+        nextButtons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonsActionPerformed(evt);
+            }
+        });
 
         newButton.setText("New");
 
@@ -238,6 +243,10 @@ public class memberFrame extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         setVisible(false);  //Close memberFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void nextButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nextButtonsActionPerformed
 
     /**
      * @param args the command line arguments

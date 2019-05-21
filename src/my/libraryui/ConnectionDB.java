@@ -27,7 +27,7 @@ public class ConnectionDB {
         String mysql_url = "jdbc:mysql://192.168.1.25:3306/Library";
         String mysql_driver = "com.mysql.jdbc.Driver";
         String mysql_user = "root";
-        String mysql_passwd = "k18hal";
+        String mysql_passwd = "manos1998";
         
         try {
             connection = DriverManager.getConnection(mysql_url, mysql_user, mysql_passwd);
