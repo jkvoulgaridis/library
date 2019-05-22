@@ -193,6 +193,7 @@ CREATE INDEX INX_ic ON Belongs_to (ISBN,categoryName);
 /* 1. Create Foreign key: FK_BOOK_pubName in Book table to Publisher table */
 ALTER TABLE Book ADD CONSTRAINT FK_BOOK_pubName
     FOREIGN KEY (pubName) REFERENCES Publisher (pubName)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
@@ -262,6 +263,7 @@ ALTER TABLE Belongs_to ADD CONSTRAINT FK_BELONGS_categoryName
 /* Create Foreign key: FK_REMINDER_empID in Reminder table to Employee table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_empID
     FOREIGN KEY (empID) REFERENCES Employee (empID)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
@@ -275,18 +277,21 @@ ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_memberID
 /* Create Foreign key: FK_REMINDER_isbn in Reminder table to Book table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_isbn
     FOREIGN KEY (ISBN) REFERENCES Book (ISBN)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
 /* Create Foreign key: FK_REMINDER_micd in Reminder table to Borrows table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_micd
     FOREIGN KEY (memberID,ISBN,copyNr,date_of_borrowing) REFERENCES Borrows (memberID,ISBN,copyNr,date_of_borrowing)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
 /* Create Foreign key: FK_REMINDER_ic in Reminder table to Copies table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_ic
     FOREIGN KEY (ISBN,copyNr) REFERENCES Copies (ISBN,copyNr)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
@@ -300,6 +305,7 @@ ALTER TABLE Written_by ADD CONSTRAINT FK_WRITTENBY_isbn
 /* Create Foreign key: FK_WRRITENBY_authid in Written_by table to Author table */
 ALTER TABLE Written_by ADD CONSTRAINT FK_WRITTENBY_authid
     FOREIGN KEY (authID) REFERENCES Author (authID)
+    ON DELETE SET NULL
     ON UPDATE CASCADE;
 
 
