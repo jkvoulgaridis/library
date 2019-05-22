@@ -13,12 +13,12 @@ import net.proteanit.sql.DbUtils;
  *
  * @author manos
  */
-public class bookPositionFrame extends javax.swing.JFrame {
+public class borrowedFiveQuery extends javax.swing.JFrame {
 
     /**
-     * Creates new form bookPositionFrame
+     * Creates new form borrowedFiveQuery
      */
-    public bookPositionFrame() {
+    public borrowedFiveQuery() {
         db_con = new ConnectionDB();
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -39,14 +39,15 @@ public class bookPositionFrame extends javax.swing.JFrame {
         if (result_set == null) {
             fetchResultSet();
         }
-        resultsTable.setModel(DbUtils.resultSetToTableModel(result_set));
+        if (result_set != null)
+            resultsTable.setModel(DbUtils.resultSetToTableModel(result_set));
     }
-    
+
     
     public void fetchResultSet() {
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "select * from BookPosition";
+            String query = "select m.memberID as \"Member ID\", Mfirst as \"First Name\", MLast as \"Last Name\" from Member as m, Borrows as b where m.memberID = b.memberID group by b.memberID having count(b.memberID)>5;";
             result_set = stmt.executeQuery(query);
             
         } catch (Exception ex) {
@@ -59,7 +60,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
             }
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,13 +74,10 @@ public class bookPositionFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
         closeButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Book Position"));
-        jPanel1.setForeground(new java.awt.Color(51, 51, 55));
-
-        resultsTable.setBackground(new java.awt.Color(204, 204, 204));
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -88,7 +86,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title", "Shelf", "CopyNr"
+                "Member ID", "First Name", "Last Name"
             }
         ));
         jScrollPane1.setViewportView(resultsTable);
@@ -100,27 +98,36 @@ public class bookPositionFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Shows which members have borrowed more than five books");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addComponent(closeButton)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGap(213, 213, 213)
+                        .addComponent(closeButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(closeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,7 +143,8 @@ public class bookPositionFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,6 +154,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -163,20 +172,20 @@ public class bookPositionFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(bookPositionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(borrowedFiveQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(bookPositionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(borrowedFiveQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(bookPositionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(borrowedFiveQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(bookPositionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(borrowedFiveQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new bookPositionFrame().setVisible(true);
+                new borrowedFiveQuery().setVisible(true);
             }
         });
     }
@@ -184,9 +193,9 @@ public class bookPositionFrame extends javax.swing.JFrame {
     final private ConnectionDB db_con;
     private ResultSet result_set = null;
     
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable resultsTable;

@@ -41,7 +41,7 @@ public class LibraryUI extends javax.swing.JFrame {
         publisherMenuItem = new javax.swing.JMenuItem();
         memberMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        query1MenuItem = new javax.swing.JMenuItem();
+        borrowedFiveMenuItem = new javax.swing.JMenuItem();
         query2MenuItem = new javax.swing.JMenuItem();
         query3MenuItem = new javax.swing.JMenuItem();
         query4MenuItem = new javax.swing.JMenuItem();
@@ -174,8 +174,13 @@ public class LibraryUI extends javax.swing.JFrame {
 
         jMenu3.setText("Queries");
 
-        query1MenuItem.setText("Query1");
-        jMenu3.add(query1MenuItem);
+        borrowedFiveMenuItem.setText("BorrowedFive");
+        borrowedFiveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrowedFiveMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(borrowedFiveMenuItem);
 
         query2MenuItem.setText("Query2");
         jMenu3.add(query2MenuItem);
@@ -264,6 +269,10 @@ public class LibraryUI extends javax.swing.JFrame {
         new bookPositionFrame().setVisible(true);
     }//GEN-LAST:event_updateableMenuItemActionPerformed
 
+    private void borrowedFiveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowedFiveMenuItemActionPerformed
+        new borrowedFiveQuery().setVisible(true);
+    }//GEN-LAST:event_borrowedFiveMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -304,6 +313,7 @@ public class LibraryUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu Views;
     private javax.swing.JMenuItem bookMenuItem;
+    private javax.swing.JMenuItem borrowedFiveMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -319,7 +329,6 @@ public class LibraryUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem memberMenuItem;
     private javax.swing.JMenuItem nonUpdateableMenuItem;
     private javax.swing.JMenuItem publisherMenuItem;
-    private javax.swing.JMenuItem query1MenuItem;
     private javax.swing.JMenuItem query2MenuItem;
     private javax.swing.JMenuItem query3MenuItem;
     private javax.swing.JMenuItem query4MenuItem;

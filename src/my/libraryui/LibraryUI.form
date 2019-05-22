@@ -55,10 +55,13 @@
             <Property name="text" type="java.lang.String" value="Queries"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="query1MenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="borrowedFiveMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query1"/>
+                <Property name="text" type="java.lang.String" value="BorrowedFive"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrowedFiveMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query2MenuItem">
               <Properties>
