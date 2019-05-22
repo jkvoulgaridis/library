@@ -4,16 +4,39 @@
  * and open the template in the editor.
  */
 package my.libraryui;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import my.libraryui.ConnectionDB;
 
 
-public class memberFrame extends javax.swing.JFrame {
-
-    /**
+public class memberFrame extends javax.swing.JFrame {   /**
      * Creates new form memberFrame
      */
     public memberFrame() {
+        db_con = new ConnectionDB();
         initComponents();
-        this.setLocationRelativeTo(null); // Align window on screen center
+        this.setLocationRelativeTo(null); // Align window on screen center  
+        insertButton.setEnabled(false);
+        try{
+         if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (result_set.first()) {
+                    id_member.setText(result_set.getString("memberID"));
+                    first_member.setText(result_set.getString("MFirst"));
+                    last_member.setText(result_set.getString("MLast"));
+                    street_member.setText(result_set.getString("Street"));
+                    number_member.setText(result_set.getString("Snumber"));
+                    postal_member.setText(result_set.getString("postalCode"));
+                    // birth date ? 
+                }
+            }
+        }catch  (Exception ex ){
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 
     /**
@@ -28,21 +51,23 @@ public class memberFrame extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        isbn_book = new javax.swing.JTextField();
+        first_member = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        title_book = new javax.swing.JTextField();
+        last_member = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        year_book = new javax.swing.JTextField();
+        street_member = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        pages_book = new javax.swing.JTextField();
+        number_member = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        pages_book1 = new javax.swing.JTextField();
+        postal_member = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        birth_member = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        id_member = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         previousButton = new javax.swing.JButton();
-        nextButtons = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
@@ -74,75 +99,86 @@ public class memberFrame extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Birth date");
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        birth_member.setDateFormatString("yyyy-MM-dd");
+
+        jLabel8.setText("ID");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pages_book1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(year_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(postal_member, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(street_member, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(number_member, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(first_member, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(last_member, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(id_member)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(birth_member, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pages_book, pages_book1});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {number_member, postal_member});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel8)
+                    .addComponent(id_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(first_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(last_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(year_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(street_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(number_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(pages_book1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(postal_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(birth_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {isbn_book, jDateChooser1, pages_book, pages_book1, title_book, year_book});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {birth_member, first_member, last_member, number_member, postal_member, street_member});
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Insert - Update - Delete record on Member table");
@@ -150,21 +186,46 @@ public class memberFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         previousButton.setText("Previous");
-
-        nextButtons.setText("Next");
-        nextButtons.addActionListener(new java.awt.event.ActionListener() {
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextButtonsActionPerformed(evt);
+                previousButtonActionPerformed(evt);
+            }
+        });
+
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
             }
         });
 
         newButton.setText("New");
+        newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newButtonActionPerformed(evt);
+            }
+        });
 
         insertButton.setText("Insert");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setText("Close");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -181,8 +242,8 @@ public class memberFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(previousButton)
                 .addGap(10, 10, 10)
-                .addComponent(nextButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(newButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,7 +263,7 @@ public class memberFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nextButtons)
+                        .addComponent(nextButton)
                         .addComponent(previousButton))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(updateButton)
@@ -244,9 +305,162 @@ public class memberFrame extends javax.swing.JFrame {
         setVisible(false);  //Close memberFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void nextButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nextButtonsActionPerformed
+
+public void fetchResultSet() {
+        try {           
+            Statement stmt = db_con.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String query = "select * from Member";
+            result_set = stmt.executeQuery(query);
+            
+        } catch (Exception ex) {
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }
+    }
+    
+    
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (previousButton.isEnabled() == false)
+                previousButton.setEnabled(true);
+                if (result_set.next()) {
+                    id_member.setText(result_set.getString("memberID"));
+                    first_member.setText(result_set.getString("MFirst"));
+                    last_member.setText(result_set.getString("MLast"));
+                    street_member.setText(result_set.getString("Street"));
+                    number_member.setText(result_set.getString("Snumber"));
+                    postal_member.setText(result_set.getString("postalCode"));
+                    //birth?
+                } else {
+                    //  result_set = null;
+                    nextButton.setEnabled(false);
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (nextButton.isEnabled() == false)
+                    nextButton.setEnabled(true);
+                
+                if (result_set.previous()) {
+                    id_member.setText(result_set.getString("memberID"));
+                    first_member.setText(result_set.getString("MFirst"));
+                    last_member.setText(result_set.getString("MLast"));
+                    street_member.setText(result_set.getString("Street"));
+                    number_member.setText(result_set.getString("Snumber"));
+                    postal_member.setText(result_set.getString("postalCode"));
+                    //birth?
+                } else {
+                    previousButton.setEnabled(false);
+                    //result_set = null;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+         insertButton.setEnabled(true);
+         id_member.setText("");
+         first_member.setText("");
+         last_member.setText("");
+         street_member.setText("");
+         number_member.setText("");
+         postal_member.setText("");
+         //birth?
+    }//GEN-LAST:event_newButtonActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String id = id_member.getText();
+        String first = first_member.getText();
+        String last = last_member.getText();
+        String street = street_member.getText();
+        String number = number_member.getText();
+        String postal = postal_member.getText();
+        
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "insert into Member (memberID, MFirst, MLast, Street, Snumber, PostalCode) values ( "+id+" , \""+first+"\", \""+last+"\" , \""+street+"\" ,"+number+", "+postal+");";
+            stmt.executeUpdate(query);           
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }       
+        result_set = null;
+        newButton.doClick();
+        JOptionPane.showMessageDialog(null, "Inserted a new Member!" );                                                
+    }//GEN-LAST:event_insertButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String name_to_del = id_member.getText();    
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "DELETE FROM Member WHERE memberID = '"+name_to_del+"';";
+            stmt.executeUpdate(query);           
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        } 
+        result_set = null;
+        //deleteButton.doClick();
+        JOptionPane.showMessageDialog(null, "Deleted a  Member!" );
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        String id = id_member.getText();
+        String first = first_member.getText();
+        String last = last_member.getText();
+        String street = street_member.getText();
+        String number = number_member.getText();
+        String postal = postal_member.getText();
+        
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "update  Member set (MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthday=NULL);";
+            stmt.executeUpdate(query);           
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }       
+        result_set = null;
+        newButton.doClick();
+        JOptionPane.showMessageDialog(null, "Updated a new Member!" );
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,13 +496,17 @@ public class memberFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    final private ConnectionDB db_con;
+    private Statement stmt = null;
+    private ResultSet result_set = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser birth_member;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField first_member;
+    private javax.swing.JTextField id_member;
     private javax.swing.JButton insertButton;
-    private javax.swing.JTextField isbn_book;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -297,15 +515,16 @@ public class memberFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField last_member;
     private javax.swing.JButton newButton;
-    private javax.swing.JButton nextButtons;
-    private javax.swing.JTextField pages_book;
-    private javax.swing.JTextField pages_book1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JTextField number_member;
+    private javax.swing.JTextField postal_member;
     private javax.swing.JButton previousButton;
-    private javax.swing.JTextField title_book;
+    private javax.swing.JTextField street_member;
     private javax.swing.JButton updateButton;
-    private javax.swing.JTextField year_book;
     // End of variables declaration//GEN-END:variables
 }
