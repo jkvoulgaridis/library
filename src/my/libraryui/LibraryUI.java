@@ -42,7 +42,7 @@ public class LibraryUI extends javax.swing.JFrame {
         memberMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         borrowedFiveMenuItem = new javax.swing.JMenuItem();
-        query2MenuItem = new javax.swing.JMenuItem();
+        pubAfterYearMenuItem = new javax.swing.JMenuItem();
         query3MenuItem = new javax.swing.JMenuItem();
         query4MenuItem = new javax.swing.JMenuItem();
         query5MenuItem = new javax.swing.JMenuItem();
@@ -182,8 +182,13 @@ public class LibraryUI extends javax.swing.JFrame {
         });
         jMenu3.add(borrowedFiveMenuItem);
 
-        query2MenuItem.setText("Query2");
-        jMenu3.add(query2MenuItem);
+        pubAfterYearMenuItem.setText("PubAfterYear");
+        pubAfterYearMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pubAfterYearMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(pubAfterYearMenuItem);
 
         query3MenuItem.setText("Query3");
         jMenu3.add(query3MenuItem);
@@ -273,6 +278,10 @@ public class LibraryUI extends javax.swing.JFrame {
         new borrowedFiveQuery().setVisible(true);
     }//GEN-LAST:event_borrowedFiveMenuItemActionPerformed
 
+    private void pubAfterYearMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pubAfterYearMenuItemActionPerformed
+        new PubAfterYearQuery().setVisible(true);
+    }//GEN-LAST:event_pubAfterYearMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,8 +337,8 @@ public class LibraryUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem memberMenuItem;
     private javax.swing.JMenuItem nonUpdateableMenuItem;
+    private javax.swing.JMenuItem pubAfterYearMenuItem;
     private javax.swing.JMenuItem publisherMenuItem;
-    private javax.swing.JMenuItem query2MenuItem;
     private javax.swing.JMenuItem query3MenuItem;
     private javax.swing.JMenuItem query4MenuItem;
     private javax.swing.JMenuItem query5MenuItem;

@@ -63,10 +63,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrowedFiveMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="query2MenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="pubAfterYearMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query2"/>
+                <Property name="text" type="java.lang.String" value="PubAfterYear"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pubAfterYearMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query3MenuItem">
               <Properties>
