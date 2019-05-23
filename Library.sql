@@ -27,6 +27,15 @@ USE Library;
 
 
 /*******************************************************************************
+
+   Create user libuser
+********************************************************************************/
+CREATE USER IF NOT EXISTS 'libuser'@'localhost' IDENTIFIED BY 'libuser';
+GRANT ALL PRIVILEGES ON Library.* TO 'libuser'@'localhost';
+FLUSH PRIVILEGES;
+
+
+/*******************************************************************************
    Create tables
 ********************************************************************************/
 CREATE TABLE Member
