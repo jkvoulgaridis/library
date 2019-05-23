@@ -206,7 +206,12 @@ public class LibraryUI extends javax.swing.JFrame {
         });
         jMenu3.add(query4MenuItem);
 
-        query5MenuItem.setText("Query5");
+        query5MenuItem.setText("Older Employees");
+        query5MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query5MenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(query5MenuItem);
 
         query6MenuItem.setText("Query6");
@@ -299,6 +304,10 @@ public class LibraryUI extends javax.swing.JFrame {
     private void query4MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query4MenuItemActionPerformed
         new TotalSalariesQuery().setVisible(true);
     }//GEN-LAST:event_query4MenuItemActionPerformed
+
+    private void query5MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query5MenuItemActionPerformed
+        new OlderEmployeesQuery().setVisible(true);
+    }//GEN-LAST:event_query5MenuItemActionPerformed
 
     /**
      * @param args the command line arguments

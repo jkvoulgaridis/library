@@ -89,8 +89,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query5MenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query5"/>
+                <Property name="text" type="java.lang.String" value="Older Employees"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="query5MenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query6MenuItem">
               <Properties>
