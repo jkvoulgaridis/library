@@ -191,6 +191,11 @@ public class LibraryUI extends javax.swing.JFrame {
         jMenu3.add(pubAfterYearMenuItem);
 
         query3MenuItem.setText("Query3");
+        query3MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query3MenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(query3MenuItem);
 
         query4MenuItem.setText("Query4");
@@ -281,6 +286,10 @@ public class LibraryUI extends javax.swing.JFrame {
     private void pubAfterYearMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pubAfterYearMenuItemActionPerformed
         new PubAfterYearQuery().setVisible(true);
     }//GEN-LAST:event_pubAfterYearMenuItemActionPerformed
+
+    private void query3MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query3MenuItemActionPerformed
+        new PublishedQuery().setVisible(true);
+    }//GEN-LAST:event_query3MenuItemActionPerformed
 
     /**
      * @param args the command line arguments
