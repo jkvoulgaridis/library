@@ -30,8 +30,9 @@ public class memberFrame extends javax.swing.JFrame {   /**
                     last_member.setText(result_set.getString("MLast"));
                     street_member.setText(result_set.getString("Street"));
                     number_member.setText(result_set.getString("Snumber"));
-                    postal_member.setText(result_set.getString("postalCode"));
-                    // birth date ? 
+                    postal_member.setText(result_set.getString("postalCode")); 
+                    String bb  = result_set.getString("Mbirthdate");
+                    ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText(bb);    
                 }
             }
         }catch  (Exception ex ){
@@ -339,7 +340,8 @@ public void fetchResultSet() {
                     street_member.setText(result_set.getString("Street"));
                     number_member.setText(result_set.getString("Snumber"));
                     postal_member.setText(result_set.getString("postalCode"));
-                    //birth?
+                    String bb  = result_set.getString("Mbirthdate");
+                    ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText(bb);
                 } else {
                     //  result_set = null;
                     nextButton.setEnabled(false);
@@ -366,7 +368,8 @@ public void fetchResultSet() {
                     street_member.setText(result_set.getString("Street"));
                     number_member.setText(result_set.getString("Snumber"));
                     postal_member.setText(result_set.getString("postalCode"));
-                    //birth?
+                    String bb  = result_set.getString("Mbirthdate");
+                    ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText(bb);
                 } else {
                     previousButton.setEnabled(false);
                     //result_set = null;
@@ -385,7 +388,7 @@ public void fetchResultSet() {
          street_member.setText("");
          number_member.setText("");
          postal_member.setText("");
-         //birth?
+         ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText("");
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
@@ -395,10 +398,10 @@ public void fetchResultSet() {
         String street = street_member.getText();
         String number = number_member.getText();
         String postal = postal_member.getText();
-        
+        String bb = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();//birth?
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "insert into Member (memberID, MFirst, MLast, Street, Snumber, PostalCode) values ( "+id+" , \""+first+"\", \""+last+"\" , \""+street+"\" ,"+number+", "+postal+");";
+            String query = "insert into Member values ( "+id+" , \""+first+"\", \""+last+"\" , \""+street+"\" ,"+number+", "+postal+",\""+bb+"\");";
             stmt.executeUpdate(query);           
         } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, ex );
@@ -442,10 +445,10 @@ public void fetchResultSet() {
         String street = street_member.getText();
         String number = number_member.getText();
         String postal = postal_member.getText();
-        
+        String bb  = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "update  Member set (MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthday=NULL);";
+            String query = "update Member set MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+id+";";
             stmt.executeUpdate(query);           
         } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, ex );
@@ -458,7 +461,7 @@ public void fetchResultSet() {
             }
         }       
         result_set = null;
-        newButton.doClick();
+        //updateButton.doClick();
         JOptionPane.showMessageDialog(null, "Updated a new Member!" );
     }//GEN-LAST:event_updateButtonActionPerformed
 
