@@ -222,7 +222,12 @@ public class LibraryUI extends javax.swing.JFrame {
         });
         jMenu3.add(query6MenuItem);
 
-        query7MenuItem.setText("Query7");
+        query7MenuItem.setText("Find Book");
+        query7MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query7MenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(query7MenuItem);
 
         jMenuBar1.add(jMenu3);
@@ -317,6 +322,10 @@ public class LibraryUI extends javax.swing.JFrame {
     private void query6MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query6MenuItemActionPerformed
         new BooksWrittenQuery().setVisible(true);
     }//GEN-LAST:event_query6MenuItemActionPerformed
+
+    private void query7MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query7MenuItemActionPerformed
+        new BookPositionQuery().setVisible(true);
+    }//GEN-LAST:event_query7MenuItemActionPerformed
 
     /**
      * @param args the command line arguments

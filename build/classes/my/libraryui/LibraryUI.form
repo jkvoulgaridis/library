@@ -105,8 +105,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query7MenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query7"/>
+                <Property name="text" type="java.lang.String" value="Find Book"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="query7MenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
