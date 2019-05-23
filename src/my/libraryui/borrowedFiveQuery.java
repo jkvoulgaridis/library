@@ -47,7 +47,7 @@ public class borrowedFiveQuery extends javax.swing.JFrame {
     public void fetchResultSet() {
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "select m.memberID as \"Member ID\", Mfirst as \"First Name\", MLast as \"Last Name\" from Member as m, Borrows as b where m.memberID = b.memberID group by b.memberID having count(b.memberID)>5;";
+            String query = "select m.memberID as \"Member ID\", Mfirst as \"First Name\", MLast as \"Last Name\" from Member as m, Borrows as b where m.memberID = b.memberID group by b.memberID having count(b.memberID)=5;";
             result_set = stmt.executeQuery(query);
             
         } catch (Exception ex) {
@@ -101,7 +101,7 @@ public class borrowedFiveQuery extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Shows which members have borrowed more than five books");
+        jLabel1.setText("Shows which members have borrowed five books");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
