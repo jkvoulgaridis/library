@@ -198,7 +198,12 @@ public class LibraryUI extends javax.swing.JFrame {
         });
         jMenu3.add(query3MenuItem);
 
-        query4MenuItem.setText("Query4");
+        query4MenuItem.setText("Total Salaries");
+        query4MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query4MenuItemActionPerformed(evt);
+            }
+        });
         jMenu3.add(query4MenuItem);
 
         query5MenuItem.setText("Query5");
@@ -290,6 +295,10 @@ public class LibraryUI extends javax.swing.JFrame {
     private void query3MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query3MenuItemActionPerformed
         new PublishedQuery().setVisible(true);
     }//GEN-LAST:event_query3MenuItemActionPerformed
+
+    private void query4MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_query4MenuItemActionPerformed
+        new TotalSalariesQuery().setVisible(true);
+    }//GEN-LAST:event_query4MenuItemActionPerformed
 
     /**
      * @param args the command line arguments

@@ -81,8 +81,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query4MenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query4"/>
+                <Property name="text" type="java.lang.String" value="Total Salaries"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="query4MenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query5MenuItem">
               <Properties>
