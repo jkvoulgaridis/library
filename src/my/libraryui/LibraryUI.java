@@ -190,7 +190,7 @@ public class LibraryUI extends javax.swing.JFrame {
         });
         jMenu3.add(pubAfterYearMenuItem);
 
-        query3MenuItem.setText("Query3");
+        query3MenuItem.setText("Published by");
         query3MenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 query3MenuItemActionPerformed(evt);

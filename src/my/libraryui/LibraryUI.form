@@ -73,7 +73,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="query3MenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Query3"/>
+                <Property name="text" type="java.lang.String" value="Published by"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="query3MenuItemActionPerformed"/>
