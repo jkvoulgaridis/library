@@ -14,12 +14,12 @@ import net.proteanit.sql.DbUtils;
  *
  * @author manos
  */
-public class OlderEmployeesQuery extends javax.swing.JFrame {
+public class BooksWrittenQuery extends javax.swing.JFrame {
 
     /**
-     * Creates new form OlderEmployeesQuery
+     * Creates new form BooksWritten
      */
-    public OlderEmployeesQuery() {
+    public BooksWrittenQuery() {
         db_con = new ConnectionDB();
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -43,11 +43,11 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
         if (result_set != null)
             resultsTable.setModel(DbUtils.resultSetToTableModel(result_set));
     }
-    
+
     public void fetchResultSet() {
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "select EFirst as \"First Name\", Elast as \"Last Name\", HiringDate as \"Hiring Date\" from Employee, Permanent_Employee order by HiringDate;";
+            String query = "select a.AFirst as \"First Name\", a.ALast as \"Last Name\", COUNT(*) as \"Books Written\" from Written_by as w inner join Author as a on a.authID=w.authID group by w.authID;";
             result_set = stmt.executeQuery(query);
             
         } catch (Exception ex) {
@@ -60,7 +60,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
             }
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,7 +80,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Shows employees ordered by the oldest hiring date");
+        jLabel1.setText("Shows how many books are written by each author");
 
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,7 +90,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "First Name", "Last Name", "Hiring Date"
+                "First Name", "Last Name", "Books Written"
             }
         ));
         jScrollPane1.setViewportView(resultsTable);
@@ -110,7 +110,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -126,7 +126,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(closeButton)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,27 +153,28 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OlderEmployeesQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BooksWrittenQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OlderEmployeesQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BooksWrittenQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OlderEmployeesQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BooksWrittenQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OlderEmployeesQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BooksWrittenQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OlderEmployeesQuery().setVisible(true);
+                new BooksWrittenQuery().setVisible(true);
             }
         });
     }
-
+    
     final private ConnectionDB db_con;
     private ResultSet result_set = null;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
