@@ -469,6 +469,7 @@ public class bookFrame extends javax.swing.JFrame {
             
             result_set = null;
             nextButton.doClick();
+            JOptionPane.showMessageDialog(null, "Deleted a book!" );
         }
         catch (Exception ex) {
             if (ex.toString().contains("delete")) {

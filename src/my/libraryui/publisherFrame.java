@@ -5,6 +5,10 @@
  */
 package my.libraryui;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kostas
@@ -15,8 +19,27 @@ public class publisherFrame extends javax.swing.JFrame {
      * Creates new form publisherFrame
      */
     public publisherFrame() {
+        db_con = new ConnectionDB();
         initComponents();
-        this.setLocationRelativeTo(null); // Align window on screen center
+        this.setLocationRelativeTo(null); // Align window on screen center  
+        insertButton.setEnabled(false);
+        try{
+         if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (result_set.first()) {
+                    name_publisher.setText(result_set.getString("pubName"));
+                    year_publisher.setText(result_set.getString("estYear"));
+                    street_publisher.setText(result_set.getString("street"));
+                    number_publisher.setText(result_set.getString("snumber"));
+                    postal_code_publisher.setText(result_set.getString("postalCode"));
+                    NAME = name_publisher.getText();
+                }
+            }
+        }catch  (Exception ex ){
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 
     /**
@@ -31,18 +54,18 @@ public class publisherFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        isbn_book = new javax.swing.JTextField();
+        name_publisher = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        title_book = new javax.swing.JTextField();
+        year_publisher = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        year_book = new javax.swing.JTextField();
+        street_publisher = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        pages_book = new javax.swing.JTextField();
+        number_publisher = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        pages_book1 = new javax.swing.JTextField();
+        postal_code_publisher = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         previousButton = new javax.swing.JButton();
-        nextButtons = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
@@ -82,23 +105,23 @@ public class publisherFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(pages_book1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(postal_code_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(year_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(street_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(number_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(name_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(year_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,39 +130,69 @@ public class publisherFrame extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(year_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(year_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(street_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(number_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(pages_book1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(postal_code_publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         previousButton.setText("Previous");
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousButtonActionPerformed(evt);
+            }
+        });
 
-        nextButtons.setText("Next");
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         newButton.setText("New");
+        newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newButtonActionPerformed(evt);
+            }
+        });
 
         insertButton.setText("Insert");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setText("Close");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +211,7 @@ public class publisherFrame extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(previousButton)
                         .addGap(10, 10, 10)
-                        .addComponent(nextButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(newButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -177,7 +230,7 @@ public class publisherFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nextButtons)
+                    .addComponent(nextButton)
                     .addComponent(previousButton)
                     .addComponent(newButton)
                     .addComponent(insertButton)
@@ -222,6 +275,156 @@ public class publisherFrame extends javax.swing.JFrame {
         setVisible(false);  //Close bookFrame
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (previousButton.isEnabled() == false)
+                previousButton.setEnabled(true);
+                
+                if (result_set.next()) {
+                    name_publisher.setText(result_set.getString("pubName"));
+                    year_publisher.setText(result_set.getString("estYear"));
+                    street_publisher.setText(result_set.getString("street"));
+                    number_publisher.setText(result_set.getString("snumber"));
+                    postal_code_publisher.setText(result_set.getString("postalCode"));
+                    NAME = name_publisher.getText();
+                } else {
+                    //  result_set = null;
+                    nextButton.setEnabled(false);
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        try {
+            if (result_set == null) {
+                fetchResultSet();
+            }
+            if (result_set != null) {
+                if (nextButton.isEnabled() == false)
+                    nextButton.setEnabled(true);
+                
+                if (result_set.previous()) {
+                    name_publisher.setText(result_set.getString("pubName"));
+                    year_publisher.setText(result_set.getString("estYear"));
+                    street_publisher.setText(result_set.getString("street"));
+                    number_publisher.setText(result_set.getString("snumber"));
+                    postal_code_publisher.setText(result_set.getString("postalCode"));
+                    NAME = name_publisher.getText();
+                } else {
+                    previousButton.setEnabled(false);
+                    //result_set = null;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        insertButton.setEnabled(true);       
+        name_publisher.setText("");
+        year_publisher.setText("");
+        street_publisher.setText("");
+        number_publisher.setText("");
+        postal_code_publisher.setText(""); 
+    }//GEN-LAST:event_newButtonActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String name = name_publisher.getText();
+        String year = year_publisher.getText();
+        String street = street_publisher.getText();
+        String number = number_publisher.getText();
+        String postal = postal_code_publisher.getText();
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "insert into Publisher values ( \""+name+"\" , "+year+", \""+street+"\" , "+number+" , "+postal+");";
+            stmt.executeUpdate(query);           
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }       
+        result_set = null;
+        newButton.doClick();
+        JOptionPane.showMessageDialog(null, "Inserted a new Publisher!" );
+    }//GEN-LAST:event_insertButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        String Pname = name_publisher.getText();
+        String year = year_publisher.getText();
+        String street= street_publisher.getText();
+        String number = number_publisher.getText();
+        String postal = postal_code_publisher.getText();
+        
+         try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "update Publisher set pubName = \""+Pname+"\", estYear = "+year+",street=\""+street+"\" , snumber="+number+" , postalCode="+postal+" where pubName=\""+NAME+"\";";
+            stmt.executeUpdate(query);           
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex );
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }
+          result_set = null;
+        //deleteButton.doClick();
+        JOptionPane.showMessageDialog(null, "updated  Publisher!" );
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String name_to_del = name_publisher.getText();    
+        try {
+            Statement stmt = db_con.connection.createStatement();
+            String query = "DELETE FROM Publisher WHERE pubName = '"+name_to_del+"';";
+            stmt.executeUpdate(query);  
+            
+            result_set = null;
+            nextButton.doClick();
+            JOptionPane.showMessageDialog(null, "Deleted a publisher!" );
+        }
+        catch (Exception ex) {
+            if (ex.toString().contains("delete")) {
+                JOptionPane.showMessageDialog(null, "Ο εκδοτικός οίκος δεν μπορεί να διαγραφεί!" );
+            }
+            else
+                JOptionPane.showMessageDialog(null, ex );
+        } 
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    
+    public void fetchResultSet() {
+        try {           
+            Statement stmt = db_con.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String query = "select * from Publisher";
+            result_set = stmt.executeQuery(query);
+            
+        } catch (Exception ex) {
+
+            try {
+                if (db_con.connection != null) {
+                    db_con.closeCon();
+                }
+            } catch (Exception x) {
+            }
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -257,11 +460,13 @@ public class publisherFrame extends javax.swing.JFrame {
         });
     }
 
+    final private ConnectionDB db_con;
+    private String NAME = null;
+    private ResultSet result_set = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
-    private javax.swing.JTextField isbn_book;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -270,13 +475,14 @@ public class publisherFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField name_publisher;
     private javax.swing.JButton newButton;
-    private javax.swing.JButton nextButtons;
-    private javax.swing.JTextField pages_book;
-    private javax.swing.JTextField pages_book1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JTextField number_publisher;
+    private javax.swing.JTextField postal_code_publisher;
     private javax.swing.JButton previousButton;
-    private javax.swing.JTextField title_book;
+    private javax.swing.JTextField street_publisher;
     private javax.swing.JButton updateButton;
-    private javax.swing.JTextField year_book;
+    private javax.swing.JTextField year_publisher;
     // End of variables declaration//GEN-END:variables
 }
