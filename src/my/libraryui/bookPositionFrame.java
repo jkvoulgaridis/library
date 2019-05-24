@@ -23,6 +23,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
         db_con = new ConnectionDB();
         
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); // Align window on screen center
         
         try {
