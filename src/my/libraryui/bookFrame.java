@@ -456,8 +456,13 @@ public class bookFrame extends javax.swing.JFrame {
                 }
             } catch (Exception x) {
             }
+        }
+        
+        result_set = null;
+        newButton.doClick();
+        JOptionPane.showMessageDialog(null, "Updated a book!" );
     }//GEN-LAST:event_updateButtonActionPerformed
-    }
+        
     
     
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
