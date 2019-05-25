@@ -382,8 +382,8 @@ public class publisherFrame extends javax.swing.JFrame {
             }
         }
           result_set = null;
-        //deleteButton.doClick();
-        JOptionPane.showMessageDialog(null, "updated  Publisher!" );
+          nextButton.doClick();
+        JOptionPane.showMessageDialog(null, "Updated  Publisher!" );
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed

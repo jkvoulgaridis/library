@@ -25,6 +25,8 @@ public class bookPositionFrame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); // Align window on screen center
+        title_view.setEditable(false);
+        copynr_view.setEditable(false);
         
         try {
             if (result_set == null) {
@@ -100,6 +102,16 @@ public class bookPositionFrame extends javax.swing.JFrame {
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Copy Nr");
+
+        title_view.setBackground(new java.awt.Color(153, 153, 153));
+        title_view.setCaretColor(new java.awt.Color(255, 255, 255));
+        title_view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                title_viewActionPerformed(evt);
+            }
+        });
+
+        copynr_view.setBackground(new java.awt.Color(153, 153, 153));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -317,6 +329,10 @@ public class bookPositionFrame extends javax.swing.JFrame {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         setVisible(false);  //Close bookFrame
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void title_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title_viewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_title_viewActionPerformed
 
     /**
      * @param args the command line arguments
