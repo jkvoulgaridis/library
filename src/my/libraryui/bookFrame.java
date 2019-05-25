@@ -459,7 +459,7 @@ public class bookFrame extends javax.swing.JFrame {
         }
         
         result_set = null;
-        newButton.doClick();
+        nextButton.doClick();
         JOptionPane.showMessageDialog(null, "Updated a book!" );
     }//GEN-LAST:event_updateButtonActionPerformed
         
