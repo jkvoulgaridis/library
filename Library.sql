@@ -158,7 +158,7 @@ CREATE TABLE Belongs_to
 
 CREATE TABLE Reminder
 (
-    empID INT NOT NULL,
+    empID INT,
     memberID INT NOT NULL,
     ISBN NVARCHAR(80) NOT NULL,
     copyNr INT,
@@ -272,7 +272,7 @@ ALTER TABLE Belongs_to ADD CONSTRAINT FK_BELONGS_categoryName
 /* Create Foreign key: FK_REMINDER_empID in Reminder table to Employee table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_empID
     FOREIGN KEY (empID) REFERENCES Employee (empID)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 
@@ -286,21 +286,21 @@ ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_memberID
 /* Create Foreign key: FK_REMINDER_isbn in Reminder table to Book table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_isbn
     FOREIGN KEY (ISBN) REFERENCES Book (ISBN)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 
 /* Create Foreign key: FK_REMINDER_micd in Reminder table to Borrows table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_micd
     FOREIGN KEY (memberID,ISBN,copyNr,date_of_borrowing) REFERENCES Borrows (memberID,ISBN,copyNr,date_of_borrowing)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 
 /* Create Foreign key: FK_REMINDER_ic in Reminder table to Copies table */
 ALTER TABLE Reminder ADD CONSTRAINT FK_REMINDER_ic
     FOREIGN KEY (ISBN,copyNr) REFERENCES Copies (ISBN,copyNr)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 
@@ -314,8 +314,49 @@ ALTER TABLE Written_by ADD CONSTRAINT FK_WRITTENBY_isbn
 /* Create Foreign key: FK_WRRITENBY_authid in Written_by table to Author table */
 ALTER TABLE Written_by ADD CONSTRAINT FK_WRITTENBY_authid
     FOREIGN KEY (authID) REFERENCES Author (authID)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
+    
+    
+/*******************************************************************************
+   Create trigger that permits members to borrow books if they are not eligible
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_BORROWS BEFORE INSERT ON Borrows
+FOR EACH ROW
+BEGIN
+    DECLARE total INT;
+    DECLARE dayDiff INT;
+    
+    SET total := (SELECT COUNT(*) FROM Borrows WHERE NEW.memberID=memberID AND date_of_return IS NULL);
+    SET dayDiff := (SELECT DATEDIFF(DATE(NOW()), date_of_borrowing) FROM Borrows WHERE NEW.memberID=memberID AND date_of_return IS NULL ORDER BY date_of_borrowing LIMIT 1);
+        
+    IF ((total >= 5) OR (dayDiff > 30))
+    THEN
+        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = "Error! This user is not eligible to borrow a book!";
+    END IF;
+END|
+
+DELIMITER ;
+
+
+/*******************************************************************************
+   Create trigger that inserts category if it doesn't exist
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_CATEGORY BEFORE INSERT ON Belongs_to
+FOR EACH ROW
+BEGIN
+    DECLARE exist INT;
+    SET exist := (SELECT COUNT(*) FROM Category WHERE categoryName = NEW.categoryName);
+           
+    IF (exist = 0)
+    THEN
+        INSERT INTO Category VALUES (NEW.categoryName, NULL);
+    END IF;
+END|
+
+DELIMITER ;
 
 
 /*******************************************************************************
@@ -489,23 +530,22 @@ INSERT INTO Copies VALUES ("960–538–174–8",4,2);
 /*******************************************************************************
    Insert data into Borrows table
 ********************************************************************************/
-INSERT INTO Borrows VALUES (1,"960–538–174–16",1,"2019-04-05",NULL);
-INSERT INTO Borrows VALUES (2,"960–538–174–5", 1,"2019-04-06",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–174–10",1,"2019-04-01",NULL);
-INSERT INTO Borrows VALUES (3,"960–538–174–11",1,"2019-04-10",NULL);
-INSERT INTO Borrows VALUES (4,"960–538–174–7", 1,"2019-04-12",NULL);
-INSERT INTO Borrows VALUES (5,"960–538–174–13",1,"2019-04-13",NULL);
-INSERT INTO Borrows VALUES (6,"960–538–174–16",2,"2019-04-14",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–7", 2,"2019-04-15",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–8", 1,"2019-04-15",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–174–16",1,"2019-05-05",NULL);
+INSERT INTO Borrows VALUES (2,"960–538–174–5", 1,"2019-05-06",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–174–10",1,"2019-05-01",NULL);
+INSERT INTO Borrows VALUES (3,"960–538–174–11",1,"2019-05-10",NULL);
+INSERT INTO Borrows VALUES (4,"960–538–174–7", 1,"2019-05-12",NULL);
+INSERT INTO Borrows VALUES (5,"960–538–174–13",1,"2019-05-13",NULL);
+INSERT INTO Borrows VALUES (6,"960–538–174–16",2,"2019-05-14",NULL);
+INSERT INTO Borrows VALUES (7,"960–538–174–7", 2,"2019-05-15",NULL);
+INSERT INTO Borrows VALUES (7,"960–538–174–8", 1,"2019-05-15",NULL);
 
 
 /*******************************************************************************
    Insert data into Reminder table
 ********************************************************************************/
-INSERT INTO Reminder VALUES (1,2,"960–538–174–5",1,"2019-04-06","2019-05-02");
-INSERT INTO Reminder VALUES (4,3,"960–538–174–11",1,"2019-04-10","2019-05-02");
-
+INSERT INTO Reminder VALUES (1,2,"960–538–174–5",1,"2019-05-06","2019-05-15");
+INSERT INTO Reminder VALUES (4,3,"960–538–174–11",1,"2019-05-10","2019-05-15");
 
 
 /*******************************************************************************
