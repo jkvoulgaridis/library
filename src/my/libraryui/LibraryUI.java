@@ -41,13 +41,13 @@ public class LibraryUI extends javax.swing.JFrame {
         publisherMenuItem = new javax.swing.JMenuItem();
         memberMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        query3MenuItem = new javax.swing.JMenuItem();
+        query7MenuItem = new javax.swing.JMenuItem();
+        query4MenuItem = new javax.swing.JMenuItem();
+        query6MenuItem = new javax.swing.JMenuItem();
+        query5MenuItem = new javax.swing.JMenuItem();
         borrowedFiveMenuItem = new javax.swing.JMenuItem();
         pubAfterYearMenuItem = new javax.swing.JMenuItem();
-        query3MenuItem = new javax.swing.JMenuItem();
-        query4MenuItem = new javax.swing.JMenuItem();
-        query5MenuItem = new javax.swing.JMenuItem();
-        query6MenuItem = new javax.swing.JMenuItem();
-        query7MenuItem = new javax.swing.JMenuItem();
         Views = new javax.swing.JMenu();
         updateableMenuItem = new javax.swing.JMenuItem();
         nonUpdateableMenuItem = new javax.swing.JMenuItem();
@@ -174,6 +174,46 @@ public class LibraryUI extends javax.swing.JFrame {
 
         jMenu3.setText("Queries");
 
+        query3MenuItem.setText("Published by");
+        query3MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query3MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(query3MenuItem);
+
+        query7MenuItem.setText("Find Book");
+        query7MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query7MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(query7MenuItem);
+
+        query4MenuItem.setText("Total Salaries");
+        query4MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query4MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(query4MenuItem);
+
+        query6MenuItem.setText("Books Written");
+        query6MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query6MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(query6MenuItem);
+
+        query5MenuItem.setText("Older Employees");
+        query5MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                query5MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(query5MenuItem);
+
         borrowedFiveMenuItem.setText("BorrowedFive");
         borrowedFiveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,46 +229,6 @@ public class LibraryUI extends javax.swing.JFrame {
             }
         });
         jMenu3.add(pubAfterYearMenuItem);
-
-        query3MenuItem.setText("Published by");
-        query3MenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                query3MenuItemActionPerformed(evt);
-            }
-        });
-        jMenu3.add(query3MenuItem);
-
-        query4MenuItem.setText("Total Salaries");
-        query4MenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                query4MenuItemActionPerformed(evt);
-            }
-        });
-        jMenu3.add(query4MenuItem);
-
-        query5MenuItem.setText("Older Employees");
-        query5MenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                query5MenuItemActionPerformed(evt);
-            }
-        });
-        jMenu3.add(query5MenuItem);
-
-        query6MenuItem.setText("Books Written");
-        query6MenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                query6MenuItemActionPerformed(evt);
-            }
-        });
-        jMenu3.add(query6MenuItem);
-
-        query7MenuItem.setText("Find Book");
-        query7MenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                query7MenuItemActionPerformed(evt);
-            }
-        });
-        jMenu3.add(query7MenuItem);
 
         jMenuBar1.add(jMenu3);
 
