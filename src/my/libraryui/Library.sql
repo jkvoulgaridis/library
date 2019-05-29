@@ -564,4 +564,3 @@ CREATE VIEW BorrowedCount AS
    (This view is updateable as it doesn't contain any element that denies it)
 ********************************************************************************/
 CREATE VIEW BookPosition AS SELECT title, shelf, copyNr FROM Book AS b, Copies AS c WHERE b.ISBN=c.ISBN;
-

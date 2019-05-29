@@ -104,7 +104,7 @@ public class OlderEmployeesQuery extends javax.swing.JFrame {
         });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("(Group By Query)");
+        jLabel2.setText("(Order By Query)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
