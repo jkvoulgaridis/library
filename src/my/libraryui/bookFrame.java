@@ -345,6 +345,8 @@ public class bookFrame extends javax.swing.JFrame {
     
     
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        updateButton.setEnabled(true);
+        insertButton.setEnabled(false);
         try {
             if (result_set == null) {
                 fetchResultSet();
@@ -373,7 +375,9 @@ public class bookFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-         try {
+        updateButton.setEnabled(true);
+        insertButton.setEnabled(false); 
+        try {
             if (result_set == null) {
                 fetchResultSet();
             }
@@ -406,6 +410,7 @@ public class bookFrame extends javax.swing.JFrame {
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
         insertButton.setEnabled(true);
+        updateButton.setEnabled(false);
         isbn_book.setText("");
         title_book.setText("");
         year_book.setText("");
@@ -420,21 +425,25 @@ public class bookFrame extends javax.swing.JFrame {
             Statement stmt = db_con.connection.createStatement();
             String query = "insert into Book values (" +isbn+",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
             stmt.executeUpdate(query);
-            
+            JOptionPane.showMessageDialog(null, "Inserted a book!" );
         } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, ex );
+            if (ex.toString().contains("field")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, ex );
 
-            try {
-                if (db_con.connection != null) {
-                    db_con.closeCon();
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
                 }
-            } catch (Exception x) {
             }
         }
         
         result_set = null;
         newButton.doClick();
-        JOptionPane.showMessageDialog(null, "Inserted a book!" );
     }//GEN-LAST:event_insertButtonActionPerformed
 
     
@@ -446,21 +455,25 @@ public class bookFrame extends javax.swing.JFrame {
             Statement stmt = db_con.connection.createStatement();
             String query= "update Book set ISBN=\""+isbn+"\",title=\""+title+"\",pubYear="+year+",numPages="+pages+",pubName=\""+publisher+"\" where ISBN=\""+ISBN+"\";";
             stmt.executeUpdate(query);
-            
+            JOptionPane.showMessageDialog(null, "Updated a book!" );
         } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, ex );
+            if (ex.toString().contains("field")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, ex );
 
-            try {
-                if (db_con.connection != null) {
-                    db_con.closeCon();
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
                 }
-            } catch (Exception x) {
             }
         }
         
         result_set = null;
         nextButton.doClick();
-        JOptionPane.showMessageDialog(null, "Updated a book!" );
     }//GEN-LAST:event_updateButtonActionPerformed
         
     

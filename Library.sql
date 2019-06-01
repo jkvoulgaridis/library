@@ -46,7 +46,7 @@ CREATE TABLE Member
     Street NVARCHAR(80),
     Snumber NVARCHAR(10),
     PostalCode NVARCHAR(10),
-    Mbirthdate DATE,	
+    Mbirthdate DATE,
     
     CONSTRAINT PK_memberID PRIMARY KEY (memberID)
 );

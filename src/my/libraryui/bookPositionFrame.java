@@ -309,21 +309,25 @@ public class bookPositionFrame extends javax.swing.JFrame {
             Statement stmt = db_con.connection.createStatement();
             String query= "update BookPosition set shelf="+shelf+" where title=\""+TITLE+"\";";
             stmt.executeUpdate(query);
-
+            JOptionPane.showMessageDialog(null, "Updated a book's shelf!" );
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex );
+            if (ex.toString().contains("field")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, ex );
 
-            try {
-                if (db_con.connection != null) {
-                    db_con.closeCon();
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
                 }
-            } catch (Exception x) {
             }
         }
         
         result_set = null;
         nextButton.doClick();
-        JOptionPane.showMessageDialog(null, "Updated a book's shelf!" );
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed

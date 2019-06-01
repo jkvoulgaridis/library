@@ -276,6 +276,8 @@ public class publisherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        updateButton.setEnabled(true);
+        insertButton.setEnabled(false);
         try {
             if (result_set == null) {
                 fetchResultSet();
@@ -302,6 +304,8 @@ public class publisherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        updateButton.setEnabled(true);
+        insertButton.setEnabled(false);
         try {
             if (result_set == null) {
                 fetchResultSet();
@@ -328,7 +332,8 @@ public class publisherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_previousButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        insertButton.setEnabled(true);       
+        insertButton.setEnabled(true); 
+        updateButton.setEnabled(false);
         name_publisher.setText("");
         year_publisher.setText("");
         street_publisher.setText("");
@@ -345,20 +350,25 @@ public class publisherFrame extends javax.swing.JFrame {
         try {
             Statement stmt = db_con.connection.createStatement();
             String query = "insert into Publisher values ( \""+name+"\" , "+year+", \""+street+"\" , "+number+" , "+postal+");";
-            stmt.executeUpdate(query);           
+            stmt.executeUpdate(query);  
+            JOptionPane.showMessageDialog(null, "Inserted a new Publisher!" );
         } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, ex );
+            if (ex.toString().contains("field")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, ex );
 
-            try {
-                if (db_con.connection != null) {
-                    db_con.closeCon();
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
                 }
-            } catch (Exception x) {
             }
         }       
         result_set = null;
         newButton.doClick();
-        JOptionPane.showMessageDialog(null, "Inserted a new Publisher!" );
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -371,19 +381,25 @@ public class publisherFrame extends javax.swing.JFrame {
          try {
             Statement stmt = db_con.connection.createStatement();
             String query = "update Publisher set pubName = \""+Pname+"\", estYear = "+year+",street=\""+street+"\" , snumber="+number+" , postalCode="+postal+" where pubName=\""+NAME+"\";";
-            stmt.executeUpdate(query);           
+            stmt.executeUpdate(query);   
+            JOptionPane.showMessageDialog(null, "Updated  Publisher!" );
         } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, ex );
-            try {
-                if (db_con.connection != null) {
-                    db_con.closeCon();
+            if (ex.toString().contains("field")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, ex );
+
+                try {
+                    if (db_con.connection != null) {
+                        db_con.closeCon();
+                    }
+                } catch (Exception x) {
                 }
-            } catch (Exception x) {
             }
         }
           result_set = null;
           nextButton.doClick();
-        JOptionPane.showMessageDialog(null, "Updated  Publisher!" );
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
