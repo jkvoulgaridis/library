@@ -54,7 +54,7 @@ CREATE TABLE Member
 
 CREATE TABLE Book
 (
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     title NVARCHAR(120) NOT NULL,
     pubYear INT,
     numPages INT,
@@ -86,7 +86,7 @@ CREATE TABLE Category
 
 CREATE TABLE Copies
 (
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     copyNr INT,
     shelf INT,
     
@@ -138,7 +138,7 @@ CREATE TABLE Temporary_Employee
 CREATE TABLE Borrows
 (
     memberID INT NOT NULL,
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     copyNr INT,
     date_of_borrowing DATE,
     date_of_return DATE,
@@ -149,7 +149,7 @@ CREATE TABLE Borrows
 
 CREATE TABLE Belongs_to
 (
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     categoryName NVARCHAR(80) NOT NULL,
 
     CONSTRAINT PK_ic PRIMARY KEY (ISBN,categoryName)
@@ -160,7 +160,7 @@ CREATE TABLE Reminder
 (
     empID INT,
     memberID INT NOT NULL,
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     copyNr INT,
     date_of_borrowing DATE,
     date_of_reminder DATE,
@@ -171,7 +171,7 @@ CREATE TABLE Reminder
 
 CREATE TABLE Written_by
 (
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN VARCHAR(15) NOT NULL,
     authID INT NOT NULL,
 
     CONSTRAINT PK_ia PRIMARY KEY (ISBN,authID)
@@ -360,20 +360,25 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger that examine is ISBN is correct (10 digits and 3 -)
+   Create trigger that examine if ISBN is correct (10 digits and 3 -)
 ********************************************************************************/
-DELIMITER $$
-DROP TRIGGER IF EXISTS contact_insert$$
+DELIMITER |
  
-CREATE TRIGGER contact_insert
-BEFORE INSERT ON contact
+CREATE TRIGGER TR_ISBN_FORMAT BEFORE INSERT ON Book
 FOR EACH ROW
 BEGIN
-  IF new.last_name REGEXP '^.* .*$' THEN
-    SET new.last_name := REPLACE(new.last_name,' ','-');
-  END IF;
-END;
-$$
+    /* Examine if ISBN sting lenght <> 13 */
+    IF (CHAR_LENGTH(new.ISBN) <> 13)
+    THEN
+        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN Format. The length is error ";
+    END IF;
+
+    /* Examine if ISBN format is correct. Contains only digits and - */
+    IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
+    THEN
+        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+    END IF;
+END|
  
 DELIMITER ;
 
