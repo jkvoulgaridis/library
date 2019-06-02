@@ -78,11 +78,11 @@ public class bookFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        isbn_book = new javax.swing.JTextField();
         title_book = new javax.swing.JTextField();
         year_book = new javax.swing.JTextField();
         pages_book = new javax.swing.JTextField();
         publisherBox = new javax.swing.JComboBox<>();
-        isbn_book = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
@@ -131,20 +131,11 @@ public class bookFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Publisher");
 
+        isbn_book.setColumns(15);
+
         publisherBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 publisherBoxActionPerformed(evt);
-            }
-        });
-
-        try {
-            isbn_book.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-###-#")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        isbn_book.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isbn_bookActionPerformed(evt);
             }
         });
 
@@ -161,10 +152,10 @@ public class bookFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pages_book, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(year_book, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pages_book, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                    .addComponent(year_book, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(title_book)
+                    .addComponent(isbn_book))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
@@ -178,18 +169,16 @@ public class bookFrame extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5});
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {isbn_book, pages_book, title_book, year_book});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(isbn_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(title_book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,8 +196,6 @@ public class bookFrame extends javax.swing.JFrame {
                         .addComponent(publisherBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {isbn_book, pages_book, title_book, year_book});
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
@@ -272,7 +259,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(newButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 1, Short.MAX_VALUE)
                 .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,10 +501,6 @@ public class bookFrame extends javax.swing.JFrame {
         }                             
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void isbn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isbn_bookActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_isbn_bookActionPerformed
-
     
     /**
      * @param args the command line arguments
@@ -564,7 +547,7 @@ public class bookFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
-    private javax.swing.JFormattedTextField isbn_book;
+    private javax.swing.JTextField isbn_book;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -374,12 +374,12 @@ INSERT INTO Publisher VALUES("ΠΡΩΤΟΠΟΡΙΑ",1995,"Δελφών","152",16
 /*******************************************************************************
    Insert data into Book table
 ********************************************************************************/
-INSERT INTO Book VALUES("9605381745","Adobe Photoshop CS3",2002,622,"ΓΚΙΟΥΡΔΑΣ");
+INSERT INTO Book VALUES("960–538–174–5","Adobe Photoshop CS3",2002,622,"ΓΚΙΟΥΡΔΑΣ");
 INSERT INTO Book VALUES("960–538–174–6","Audacity 1.3.13",2001,926,"ΚΕΡΔΟΣ");
 INSERT INTO Book VALUES("960–538–174–7","AutoCAD 2004",1997,276,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
 INSERT INTO Book VALUES("960–538–174–8","Facebook",1997,963,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
 INSERT INTO Book VALUES("960–538–174–9","HTML5+JavaScript Δημιουργώντας παιχνίδια",1999,664,"ΜΕΤΑΙΧΜΙΟ");
-INSERT INTO Book VALUES("960–53817410","JAVA Getting started",1991,375,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–174–10","JAVA Getting started",1991,375,"ΚΕΡΔΟΣ");
 INSERT INTO Book VALUES("960–538–174–11","Μικροϋπολογιστές",2010,279,"ΠΑΠΑΣΩΤΗΡΙΟΥ");
 INSERT INTO Book VALUES("960–538–174–12","C++ Getting started",2001,904,"ΚΕΡΔΟΣ");
 INSERT INTO Book VALUES("960–538–174–13","LabVIEW",2015,240,"ΓΚΙΟΥΡΔΑΣ");
@@ -459,12 +459,12 @@ INSERT INTO Written_by VALUES ("960–538–174–11",2);
 INSERT INTO Written_by VALUES ("960–538–174–11",5);
 INSERT INTO Written_by VALUES ("960–538–174–11",4);
 INSERT INTO Written_by VALUES ("960–538–174–15",2);
-INSERT INTO Written_by VALUES ("96053817410",3);
+INSERT INTO Written_by VALUES ("960–538–174–10",3);
 INSERT INTO Written_by VALUES ("960–538–174–6",3);
 INSERT INTO Written_by VALUES ("960–538–174–12",5);
 INSERT INTO Written_by VALUES ("960–538–174–13",5);
 INSERT INTO Written_by VALUES ("960–538–174–14",6);
-INSERT INTO Written_by VALUES ("9605381745",6);
+INSERT INTO Written_by VALUES ("960–538–174–5",6);
 INSERT INTO Written_by VALUES ("960–538–174–8",6);
 
 
@@ -484,7 +484,7 @@ INSERT INTO Category VALUES ("ΔΙΑΔΙΚΤΥΟ","ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ"
 /*******************************************************************************
    Insert data into Belongs_to table
 ********************************************************************************/
-INSERT INTO Belongs_to VALUES("9605381745","ΕΦΑΡΜΟΓΕΣ");
+INSERT INTO Belongs_to VALUES("960–538–174–5","ΕΦΑΡΜΟΓΕΣ");
 INSERT INTO Belongs_to VALUES("960–538–174–6","ΕΦΑΡΜΟΓΕΣ");
 INSERT INTO Belongs_to VALUES("960–538–174–7","ΕΦΑΡΜΟΓΕΣ");
 INSERT INTO Belongs_to VALUES("960–538–174–8","ΔΙΑΔΙΚΤΥΟ");
