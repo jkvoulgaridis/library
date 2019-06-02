@@ -12,8 +12,6 @@ import javax.swing.JOptionPane;
 import my.libraryui.ConnectionDB;
 
 public class bookFrame extends javax.swing.JFrame {
-
-    
     /**
      * Creates new form bookFrame
      */
@@ -269,7 +267,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addComponent(deleteButton)
                 .addGap(15, 15, 15))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(230, 230, 230)
+                .addGap(239, 239, 239)
                 .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -461,6 +459,9 @@ public class bookFrame extends javax.swing.JFrame {
         } catch (Exception ex) {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else if (ex.toString().contains("ON UPDATE CASCADE")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο αυτό είναι δανεισμένο" );
             }
             else {
                 JOptionPane.showMessageDialog(null, ex );
