@@ -70,7 +70,7 @@ public class publisherFrame extends javax.swing.JFrame {
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Publisher record");
@@ -194,10 +194,10 @@ public class publisherFrame extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setText("Close");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
@@ -222,7 +222,7 @@ public class publisherFrame extends javax.swing.JFrame {
                         .addComponent(deleteButton))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(253, 253, 253)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -237,7 +237,7 @@ public class publisherFrame extends javax.swing.JFrame {
                     .addComponent(updateButton)
                     .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(cancelButton)
+                .addComponent(closeButton)
                 .addContainerGap())
         );
 
@@ -271,9 +271,9 @@ public class publisherFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);  //Close bookFrame
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         updateButton.setEnabled(true);
@@ -359,12 +359,12 @@ public class publisherFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }
+//                try {
+//                    if (db_con.connection != null) {
+//                        db_con.closeCon();
+//                    }
+//                } catch (Exception x) {
+//                }
             }
         }       
         result_set = null;
@@ -390,12 +390,12 @@ public class publisherFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }
+//                try {
+//                    if (db_con.connection != null) {
+//                        db_con.closeCon();
+//                    }
+//                } catch (Exception x) {
+//                }
             }
         }
           result_set = null;
@@ -480,7 +480,7 @@ public class publisherFrame extends javax.swing.JFrame {
     private String NAME = null;
     private ResultSet result_set = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;

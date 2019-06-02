@@ -37,12 +37,12 @@ public class bookFrame extends javax.swing.JFrame {
                 
             } catch (Exception ex) {
 
-                try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }
+//                try {
+//                    if (db_con.connection != null) {
+//                        db_con.closeCon();
+//                    }
+//                } catch (Exception x) {
+//                }
             }
             
             if (result_set == null) {
@@ -91,7 +91,7 @@ public class bookFrame extends javax.swing.JFrame {
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        okButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -132,6 +132,8 @@ public class bookFrame extends javax.swing.JFrame {
         jLabel5.setText("Pages:");
 
         jLabel6.setText("Publisher");
+
+        isbn_book.setColumns(15);
 
         publisherBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,10 +236,10 @@ public class bookFrame extends javax.swing.JFrame {
             }
         });
 
-        okButton.setText("Close");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
@@ -268,7 +270,7 @@ public class bookFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(230, 230, 230)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -288,7 +290,7 @@ public class bookFrame extends javax.swing.JFrame {
                         .addComponent(insertButton)
                         .addComponent(newButton)))
                 .addGap(18, 18, 18)
-                .addComponent(okButton)
+                .addComponent(closeButton)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -320,9 +322,9 @@ public class bookFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);  //Close bookFrame
-    }//GEN-LAST:event_okButtonActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     
     public void fetchResultSet() {
@@ -433,12 +435,12 @@ public class bookFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
+                /*try {
                     if (db_con.connection != null) {
                         db_con.closeCon();
                     }
                 } catch (Exception x) {
-                }
+                }*/
             }
         }
         
@@ -463,12 +465,12 @@ public class bookFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }
+//                try {
+//                    if (db_con.connection != null) {
+//                        db_con.closeCon();
+//                    }
+//                } catch (Exception x) {
+//                }
             }
         }
         
@@ -541,6 +543,7 @@ public class bookFrame extends javax.swing.JFrame {
     private String ISBN = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
     private javax.swing.JTextField isbn_book;
@@ -555,7 +558,6 @@ public class bookFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton newButton;
     private javax.swing.JButton nextButton;
-    private javax.swing.JButton okButton;
     private javax.swing.JTextField pages_book;
     private javax.swing.JButton previousButton;
     private javax.swing.JComboBox<String> publisherBox;

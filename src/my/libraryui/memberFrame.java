@@ -72,7 +72,7 @@ public class memberFrame extends javax.swing.JFrame {
         insertButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -216,10 +216,10 @@ public class memberFrame extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setText("Close");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
@@ -243,7 +243,7 @@ public class memberFrame extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(248, 248, 248))
         );
         jPanel2Layout.setVerticalGroup(
@@ -260,7 +260,7 @@ public class memberFrame extends javax.swing.JFrame {
                         .addComponent(insertButton)
                         .addComponent(newButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelButton)
+                .addComponent(closeButton)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -293,9 +293,9 @@ public class memberFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);  //Close memberFrame
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     public void fetchResultSet() {
         try {           
@@ -323,7 +323,7 @@ public class memberFrame extends javax.swing.JFrame {
             }
             if (result_set != null) {
                 if (previousButton.isEnabled() == false)
-                previousButton.setEnabled(true);
+                    previousButton.setEnabled(true);
                 if (result_set.next()) {
                     first_member.setText(result_set.getString("MFirst"));
                     last_member.setText(result_set.getString("MLast"));
@@ -404,12 +404,12 @@ public class memberFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
+                /*try {
                     if (db_con.connection != null) {
                         db_con.closeCon();
                     }
                 } catch (Exception x) {
-                }
+                }*/
             }
         }       
         result_set = null;
@@ -426,7 +426,7 @@ public class memberFrame extends javax.swing.JFrame {
             String bb  = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
 
             Statement stmt = db_con.connection.createStatement();
-            String query = "update Member set memberID = MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
+            String query = "update Member set MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
             stmt.executeUpdate(query);  
             JOptionPane.showMessageDialog(null, "Updated a new Member!" );
         } catch (Exception ex) {
@@ -436,12 +436,12 @@ public class memberFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
+                /*try {
                     if (db_con.connection != null) {
                         db_con.closeCon();
                     }
                 } catch (Exception x) {
-                }
+                }*/
             }
         }       
         result_set = null;
@@ -508,7 +508,7 @@ public class memberFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser birth_member;
-    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField first_member;
     private javax.swing.JButton insertButton;

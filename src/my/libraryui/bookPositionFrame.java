@@ -84,7 +84,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
         previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
-        okButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -172,10 +172,10 @@ public class bookPositionFrame extends javax.swing.JFrame {
             }
         });
 
-        okButton.setText("Close");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                closeButtonActionPerformed(evt);
             }
         });
 
@@ -194,7 +194,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
                         .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -206,7 +206,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
                     .addComponent(previousButton)
                     .addComponent(updateButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(okButton)
+                .addComponent(closeButton)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -317,12 +317,12 @@ public class bookPositionFrame extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, ex );
 
-                try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }
+//                try {
+//                    if (db_con.connection != null) {
+//                        db_con.closeCon();
+//                    }
+//                } catch (Exception x) {
+//                }
             }
         }
         
@@ -330,9 +330,9 @@ public class bookPositionFrame extends javax.swing.JFrame {
         nextButton.doClick();
     }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);  //Close bookFrame
-    }//GEN-LAST:event_okButtonActionPerformed
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     private void title_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title_viewActionPerformed
         // TODO add your handling code here:
@@ -378,6 +378,7 @@ public class bookPositionFrame extends javax.swing.JFrame {
     private String TITLE = null;    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton closeButton;
     private javax.swing.JTextField copynr_view;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -387,7 +388,6 @@ public class bookPositionFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton nextButton;
-    private javax.swing.JButton okButton;
     private javax.swing.JButton previousButton;
     private javax.swing.JTextField shelf_view;
     private javax.swing.JTextField title_view;
