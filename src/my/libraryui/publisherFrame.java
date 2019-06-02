@@ -9,10 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author kostas
- */
+
 public class publisherFrame extends javax.swing.JFrame {
 
     /**

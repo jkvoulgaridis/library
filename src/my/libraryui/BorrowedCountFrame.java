@@ -9,10 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author manos
- */
+
 public class BorrowedCountFrame extends javax.swing.JFrame {
 
     /**

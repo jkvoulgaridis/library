@@ -10,10 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author kostas
- */
+
 public class ConnectionDB {
     /**
      * Creates new ConnectionDB

@@ -10,10 +10,6 @@ import java.sql.Statement;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author manos
- */
 public class OlderEmployeesQuery extends javax.swing.JFrame {
 
     /**

@@ -10,10 +10,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author manos
- */
+
 public class bookPositionFrame extends javax.swing.JFrame {
 
     /**
