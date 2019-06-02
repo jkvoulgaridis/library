@@ -360,6 +360,25 @@ DELIMITER ;
 
 
 /*******************************************************************************
+   Create trigger that examine is ISBN is correct (10 digits and 3 -)
+********************************************************************************/
+DELIMITER $$
+DROP TRIGGER IF EXISTS contact_insert$$
+ 
+CREATE TRIGGER contact_insert
+BEFORE INSERT ON contact
+FOR EACH ROW
+BEGIN
+  IF new.last_name REGEXP '^.* .*$' THEN
+    SET new.last_name := REPLACE(new.last_name,' ','-');
+  END IF;
+END;
+$$
+ 
+DELIMITER ;
+
+
+/*******************************************************************************
    Insert data into Publisher table
 ********************************************************************************/
 INSERT INTO Publisher VALUES("ΓΚΙΟΥΡΔΑΣ",1932,"Βαλτετσίου","90",16885);
@@ -374,19 +393,19 @@ INSERT INTO Publisher VALUES("ΠΡΩΤΟΠΟΡΙΑ",1995,"Δελφών","152",16
 /*******************************************************************************
    Insert data into Book table
 ********************************************************************************/
-INSERT INTO Book VALUES("960–538–174–5","Adobe Photoshop CS3",2002,622,"ΓΚΙΟΥΡΔΑΣ");
-INSERT INTO Book VALUES("960–538–174–6","Audacity 1.3.13",2001,926,"ΚΕΡΔΟΣ");
-INSERT INTO Book VALUES("960–538–174–7","AutoCAD 2004",1997,276,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
-INSERT INTO Book VALUES("960–538–174–8","Facebook",1997,963,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
-INSERT INTO Book VALUES("960–538–174–9","HTML5+JavaScript Δημιουργώντας παιχνίδια",1999,664,"ΜΕΤΑΙΧΜΙΟ");
-INSERT INTO Book VALUES("960–538–174–10","JAVA Getting started",1991,375,"ΚΕΡΔΟΣ");
-INSERT INTO Book VALUES("960–538–174–11","Μικροϋπολογιστές",2010,279,"ΠΑΠΑΣΩΤΗΡΙΟΥ");
-INSERT INTO Book VALUES("960–538–174–12","C++ Getting started",2001,904,"ΚΕΡΔΟΣ");
-INSERT INTO Book VALUES("960–538–174–13","LabVIEW",2015,240,"ΓΚΙΟΥΡΔΑΣ");
-INSERT INTO Book VALUES("960–538–174–14","ASSEMBLY ARM-MIPS",2013,248,"ΠΡΩΤΟΠΟΡΙΑ");
-INSERT INTO Book VALUES("960–538–174–15","LaTeX για αρχάριους",2014,326,"ΜΕΤΑΙΧΜΙΟ");
-INSERT INTO Book VALUES("960–538–174–16","UNIX - οκτώ μαθήματα",2005,891,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
-INSERT INTO Book VALUES("960–538–174–17","Αλγόριθμοι και πολυπλοκότητα",2011,168,"ΓΚΙΟΥΡΔΑΣ");
+INSERT INTO Book VALUES("960–538–174–1","Adobe Photoshop CS3",2002,622,"ΓΚΙΟΥΡΔΑΣ");
+INSERT INTO Book VALUES("960–538–174–2","Audacity 1.3.13",2001,926,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–174–3","AutoCAD 2004",1997,276,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
+INSERT INTO Book VALUES("960–538–174–4","Facebook",1997,963,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
+INSERT INTO Book VALUES("960–538–174–5","HTML5+JavaScript Δημιουργώντας παιχνίδια",1999,664,"ΜΕΤΑΙΧΜΙΟ");
+INSERT INTO Book VALUES("960–538–175–1","JAVA Getting started",1991,375,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–175–2","Μικροϋπολογιστές",2010,279,"ΠΑΠΑΣΩΤΗΡΙΟΥ");
+INSERT INTO Book VALUES("960–538–175–3","C++ Getting started",2001,904,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–175–4","LabVIEW",2015,240,"ΓΚΙΟΥΡΔΑΣ");
+INSERT INTO Book VALUES("960–538–175–5","ASSEMBLY ARM-MIPS",2013,248,"ΠΡΩΤΟΠΟΡΙΑ");
+INSERT INTO Book VALUES("960–538–175–6","LaTeX για αρχάριους",2014,326,"ΜΕΤΑΙΧΜΙΟ");
+INSERT INTO Book VALUES("960–538–175–7","UNIX - οκτώ μαθήματα",2005,891,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
+INSERT INTO Book VALUES("960–538–175–8","Αλγόριθμοι και πολυπλοκότητα",2011,168,"ΓΚΙΟΥΡΔΑΣ");
 
 
 /*******************************************************************************
@@ -447,25 +466,25 @@ INSERT INTO Temporary_Employee VALUES (6,1211);
 /*******************************************************************************
    Insert data into Written_by table
 ********************************************************************************/
-INSERT INTO Written_by VALUES ("960–538–174–16",1);
-INSERT INTO Written_by VALUES ("960–538–174–16",2);
-INSERT INTO Written_by VALUES ("960–538–174–16",3);
-INSERT INTO Written_by VALUES ("960–538–174–17",1);
-INSERT INTO Written_by VALUES ("960–538–174–7",6);
-INSERT INTO Written_by VALUES ("960–538–174–7",1);
-INSERT INTO Written_by VALUES ("960–538–174–9",1);
-INSERT INTO Written_by VALUES ("960–538–174–9",3);
-INSERT INTO Written_by VALUES ("960–538–174–11",2);
-INSERT INTO Written_by VALUES ("960–538–174–11",5);
-INSERT INTO Written_by VALUES ("960–538–174–11",4);
-INSERT INTO Written_by VALUES ("960–538–174–15",2);
-INSERT INTO Written_by VALUES ("960–538–174–10",3);
-INSERT INTO Written_by VALUES ("960–538–174–6",3);
-INSERT INTO Written_by VALUES ("960–538–174–12",5);
-INSERT INTO Written_by VALUES ("960–538–174–13",5);
-INSERT INTO Written_by VALUES ("960–538–174–14",6);
-INSERT INTO Written_by VALUES ("960–538–174–5",6);
-INSERT INTO Written_by VALUES ("960–538–174–8",6);
+INSERT INTO Written_by VALUES ("960–538–175–7",1);
+INSERT INTO Written_by VALUES ("960–538–175–7",2);
+INSERT INTO Written_by VALUES ("960–538–175–7",3);
+INSERT INTO Written_by VALUES ("960–538–175–8",1);
+INSERT INTO Written_by VALUES ("960–538–174–3",6);
+INSERT INTO Written_by VALUES ("960–538–174–3",1);
+INSERT INTO Written_by VALUES ("960–538–174–5",1);
+INSERT INTO Written_by VALUES ("960–538–174–5",3);
+INSERT INTO Written_by VALUES ("960–538–175–2",2);
+INSERT INTO Written_by VALUES ("960–538–175–2",5);
+INSERT INTO Written_by VALUES ("960–538–175–2",4);
+INSERT INTO Written_by VALUES ("960–538–175–6",2);
+INSERT INTO Written_by VALUES ("960–538–175–1",3);
+INSERT INTO Written_by VALUES ("960–538–174–2",3);
+INSERT INTO Written_by VALUES ("960–538–175–3",5);
+INSERT INTO Written_by VALUES ("960–538–175–4",5);
+INSERT INTO Written_by VALUES ("960–538–175–5",6);
+INSERT INTO Written_by VALUES ("960–538–174–1",6);
+INSERT INTO Written_by VALUES ("960–538–174–4",6);
 
 
 /*******************************************************************************
@@ -484,71 +503,71 @@ INSERT INTO Category VALUES ("ΔΙΑΔΙΚΤΥΟ","ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ"
 /*******************************************************************************
    Insert data into Belongs_to table
 ********************************************************************************/
-INSERT INTO Belongs_to VALUES("960–538–174–5","ΕΦΑΡΜΟΓΕΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–6","ΕΦΑΡΜΟΓΕΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–7","ΕΦΑΡΜΟΓΕΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–8","ΔΙΑΔΙΚΤΥΟ");
-INSERT INTO Belongs_to VALUES("960–538–174–9","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–10","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–11","ΠΟΛΥΤΕΧΝΙΚΑ");
-INSERT INTO Belongs_to VALUES("960–538–174–12","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–13","ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ");
-INSERT INTO Belongs_to VALUES("960–538–174–14","ΠΟΛΥΤΕΧΝΙΚΑ");
-INSERT INTO Belongs_to VALUES("960–538–174–15","ΕΦΑΡΜΟΓΕΣ");
-INSERT INTO Belongs_to VALUES("960–538–174–16","ΛΕΙΤΟΥΡΓΙΚΑ");
-INSERT INTO Belongs_to VALUES("960–538–174–17", "ΠΟΛΥΤΕΧΝΙΚΑ");
+INSERT INTO Belongs_to VALUES("960–538–174–1","ΕΦΑΡΜΟΓΕΣ");
+INSERT INTO Belongs_to VALUES("960–538–174–2","ΕΦΑΡΜΟΓΕΣ");
+INSERT INTO Belongs_to VALUES("960–538–174–3","ΕΦΑΡΜΟΓΕΣ");
+INSERT INTO Belongs_to VALUES("960–538–174–4","ΔΙΑΔΙΚΤΥΟ");
+INSERT INTO Belongs_to VALUES("960–538–174–5","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
+INSERT INTO Belongs_to VALUES("960–538–175–1","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
+INSERT INTO Belongs_to VALUES("960–538–175–2","ΠΟΛΥΤΕΧΝΙΚΑ");
+INSERT INTO Belongs_to VALUES("960–538–175–3","ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ");
+INSERT INTO Belongs_to VALUES("960–538–175–4","ΠΑΝΕΠΙΣΤΗΜΙΑΚΑ");
+INSERT INTO Belongs_to VALUES("960–538–175–5","ΠΟΛΥΤΕΧΝΙΚΑ");
+INSERT INTO Belongs_to VALUES("960–538–175–6","ΕΦΑΡΜΟΓΕΣ");
+INSERT INTO Belongs_to VALUES("960–538–175–7","ΛΕΙΤΟΥΡΓΙΚΑ");
+INSERT INTO Belongs_to VALUES("960–538–175–8", "ΠΟΛΥΤΕΧΝΙΚΑ");
 
 
 /*******************************************************************************
    Insert data into Copies table
 ********************************************************************************/
-INSERT INTO Copies VALUES ("960–538–174–16",1,1);
-INSERT INTO Copies VALUES ("960–538–174–16",2,1);
-INSERT INTO Copies VALUES ("960–538–174–16",3,1);
-INSERT INTO Copies VALUES ("960–538–174–17",1,2);
-INSERT INTO Copies VALUES ("960–538–174–7",1,4);
-INSERT INTO Copies VALUES ("960–538–174–7",2,4);
-INSERT INTO Copies VALUES ("960–538–174–9",1,4);
-INSERT INTO Copies VALUES ("960–538–174–11",1,3);
-INSERT INTO Copies VALUES ("960–538–174–11",2,3);
-INSERT INTO Copies VALUES ("960–538–174–11",3,3);
-INSERT INTO Copies VALUES ("960–538–174–15",1,1);
-INSERT INTO Copies VALUES ("960–538–174–10",1,1);
-INSERT INTO Copies VALUES ("960–538–174–6",1,4);
-INSERT INTO Copies VALUES ("960–538–174–12",1,4);
-INSERT INTO Copies VALUES ("960–538–174–13",1,4);
-INSERT INTO Copies VALUES ("960–538–174–14",1,3);
-INSERT INTO Copies VALUES ("960–538–174–14",2,3);
-INSERT INTO Copies VALUES ("960–538–174–14",3,3);
-INSERT INTO Copies VALUES ("960–538–174–5",1,2);
-INSERT INTO Copies VALUES ("960–538–174–8",1,2);
-INSERT INTO Copies VALUES ("960–538–174–8",2,2);
-INSERT INTO Copies VALUES ("960–538–174–8",3,2);
-INSERT INTO Copies VALUES ("960–538–174–8",4,2);
+INSERT INTO Copies VALUES ("960–538–175–7",1,1);
+INSERT INTO Copies VALUES ("960–538–175–7",2,1);
+INSERT INTO Copies VALUES ("960–538–175–7",3,1);
+INSERT INTO Copies VALUES ("960–538–175–8",1,2);
+INSERT INTO Copies VALUES ("960–538–174–3",1,4);
+INSERT INTO Copies VALUES ("960–538–174–3",2,4);
+INSERT INTO Copies VALUES ("960–538–174–5",1,4);
+INSERT INTO Copies VALUES ("960–538–175–2",1,3);
+INSERT INTO Copies VALUES ("960–538–175–2",2,3);
+INSERT INTO Copies VALUES ("960–538–175–2",3,3);
+INSERT INTO Copies VALUES ("960–538–175–6",1,1);
+INSERT INTO Copies VALUES ("960–538–175–1",1,1);
+INSERT INTO Copies VALUES ("960–538–174–2",1,4);
+INSERT INTO Copies VALUES ("960–538–175–3",1,4);
+INSERT INTO Copies VALUES ("960–538–175–4",1,4);
+INSERT INTO Copies VALUES ("960–538–175–5",1,3);
+INSERT INTO Copies VALUES ("960–538–175–5",2,3);
+INSERT INTO Copies VALUES ("960–538–175–5",3,3);
+INSERT INTO Copies VALUES ("960–538–174–1",1,2);
+INSERT INTO Copies VALUES ("960–538–174–4",1,2);
+INSERT INTO Copies VALUES ("960–538–174–4",2,2);
+INSERT INTO Copies VALUES ("960–538–174–4",3,2);
+INSERT INTO Copies VALUES ("960–538–174–4",4,2);
 
 
 /*******************************************************************************
    Insert data into Borrows table
 ********************************************************************************/
-INSERT INTO Borrows VALUES (1,"960–538–174–16",1,"2019-05-05",NULL);
-INSERT INTO Borrows VALUES (2,"960–538–174–5", 1,"2019-05-06",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–174–10",1,"2019-05-01",NULL);
-INSERT INTO Borrows VALUES (3,"960–538–174–11",1,"2019-05-10",NULL);
-INSERT INTO Borrows VALUES (4,"960–538–174–7", 1,"2019-05-12",NULL);
-INSERT INTO Borrows VALUES (5,"960–538–174–13",1,"2019-05-13",NULL);
-INSERT INTO Borrows VALUES (6,"960–538–174–16",2,"2019-05-14",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–7", 2,"2019-05-15",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–8", 1,"2019-05-15",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–174–11",3,"2019-05-20",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–174–14",3,"2019-05-20",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–174–16",3,"2019-05-20",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–7",1,"2019-05-05",NULL);
+INSERT INTO Borrows VALUES (2,"960–538–174–1", 1,"2019-05-06",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–1",1,"2019-05-01",NULL);
+INSERT INTO Borrows VALUES (3,"960–538–175–2",1,"2019-05-10",NULL);
+INSERT INTO Borrows VALUES (4,"960–538–174–3", 1,"2019-05-12",NULL);
+INSERT INTO Borrows VALUES (5,"960–538–175–4",1,"2019-05-13",NULL);
+INSERT INTO Borrows VALUES (6,"960–538–175–7",2,"2019-05-14",NULL);
+INSERT INTO Borrows VALUES (7,"960–538–174–3", 2,"2019-05-15",NULL);
+INSERT INTO Borrows VALUES (7,"960–538–174–4", 1,"2019-05-15",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–2",3,"2019-05-20",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–5",3,"2019-05-20",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–7",3,"2019-05-20",NULL);
 
 
 /*******************************************************************************
    Insert data into Reminder table
 ********************************************************************************/
-INSERT INTO Reminder VALUES (1,2,"960–538–174–5",1,"2019-05-06","2019-05-15");
-INSERT INTO Reminder VALUES (4,3,"960–538–174–11",1,"2019-05-10","2019-05-15");
+INSERT INTO Reminder VALUES (1,2,"960–538–174–1",1,"2019-05-06","2019-05-15");
+INSERT INTO Reminder VALUES (4,3,"960–538–175–2",1,"2019-05-10","2019-05-15");
 
 
 /*******************************************************************************
