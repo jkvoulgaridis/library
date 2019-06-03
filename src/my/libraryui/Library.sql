@@ -411,7 +411,7 @@ DELIMITER ;
    Insert data into Publisher table
 ********************************************************************************/
 INSERT INTO Publisher VALUES("ΓΚΙΟΥΡΔΑΣ",1932,"Βαλτετσίου","90",16885);
-INSERT INTO Publisher VALUES("ΚΕΡΔΟΣ",1984,"Βάρναλη Κώστα","171",16872);
+INSERT INTO Publisher VALUES("ΚΕΔΡΟΣ",1984,"Βάρναλη Κώστα","171",16872);
 INSERT INTO Publisher VALUES("ΚΛΕΙΔΑΡΙΘΜΟΣ",1977,"Βενιζέλου Ελευθέριου","93",16514);
 INSERT INTO Publisher VALUES("ΒΙΒΛΙΟΝΕΤ",1996,"Βεργίνας","148",16611);
 INSERT INTO Publisher VALUES("ΜΕΤΑΙΧΜΙΟ",1980,"Βορρά","57",16949);
@@ -423,13 +423,13 @@ INSERT INTO Publisher VALUES("ΠΡΩΤΟΠΟΡΙΑ",1995,"Δελφών","152",16
    Insert data into Book table
 ********************************************************************************/
 INSERT INTO Book VALUES("960–538–174–1","Adobe Photoshop CS3",2002,622,"ΓΚΙΟΥΡΔΑΣ");
-INSERT INTO Book VALUES("960–538–174–2","Audacity 1.3.13",2001,926,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–174–2","Audacity 1.3.13",2001,926,"ΚΕΔΡΟΣ");
 INSERT INTO Book VALUES("960–538–174–3","AutoCAD 2004",1997,276,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
 INSERT INTO Book VALUES("960–538–174–4","Facebook",1997,963,"ΚΛΕΙΔΑΡΙΘΜΟΣ");
 INSERT INTO Book VALUES("960–538–174–5","HTML5+JavaScript Δημιουργώντας παιχνίδια",1999,664,"ΜΕΤΑΙΧΜΙΟ");
-INSERT INTO Book VALUES("960–538–175–1","JAVA Getting started",1991,375,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–175–1","JAVA Getting started",1991,375,"ΚΕΔΡΟΣ");
 INSERT INTO Book VALUES("960–538–175–2","Μικροϋπολογιστές",2010,279,"ΠΑΠΑΣΩΤΗΡΙΟΥ");
-INSERT INTO Book VALUES("960–538–175–3","C++ Getting started",2001,904,"ΚΕΡΔΟΣ");
+INSERT INTO Book VALUES("960–538–175–3","C++ Getting started",2001,904,"ΚΕΔΡΟΣ");
 INSERT INTO Book VALUES("960–538–175–4","LabVIEW",2015,240,"ΓΚΙΟΥΡΔΑΣ");
 INSERT INTO Book VALUES("960–538–175–5","ASSEMBLY ARM-MIPS",2013,248,"ΠΡΩΤΟΠΟΡΙΑ");
 INSERT INTO Book VALUES("960–538–175–6","LaTeX για αρχάριους",2014,326,"ΜΕΤΑΙΧΜΙΟ");

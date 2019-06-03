@@ -34,13 +34,7 @@ public class bookFrame extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-
-//                try {
-//                    if (db_con.connection != null) {
-//                        db_con.closeCon();
-//                    }
-//                } catch (Exception x) {
-//                }
+                JOptionPane.showMessageDialog(null, ex);
             }
             
             if (result_set == null) {
@@ -374,6 +368,7 @@ public class bookFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
+    
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
         updateButton.setEnabled(true);
         insertButton.setEnabled(false); 
@@ -404,10 +399,12 @@ public class bookFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_previousButtonActionPerformed
 
+    
     private void publisherBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherBoxActionPerformed
 
     }//GEN-LAST:event_publisherBoxActionPerformed
 
+    
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
         insertButton.setEnabled(true);
         updateButton.setEnabled(false);
@@ -417,28 +414,29 @@ public class bookFrame extends javax.swing.JFrame {
         pages_book.setText("");
     }//GEN-LAST:event_newButtonActionPerformed
 
+    
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        String isbn=isbn_book.getText(), title=title_book.getText(), year=year_book.getText(), pages=pages_book.getText();
+        String isbn=isbn_book.getText().trim(), title=title_book.getText(), year=year_book.getText(), pages=pages_book.getText();
         String publisher = publisherBox.getSelectedItem().toString();
-        
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "insert into Book values (" +isbn+",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
+            String query = "insert into Book values (\""+isbn+"\",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
+            JOptionPane.showMessageDialog(null, query);
+            
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Inserted a book!" );
         } catch (Exception ex) {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("The length is error")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος ξεπερνά τους 13 χαρακτήρες" );
+            }
+            else if (ex.toString().contains("The correct is ###-###-###-#")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-                /*try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }*/
             }
         }
         
@@ -463,15 +461,14 @@ public class bookFrame extends javax.swing.JFrame {
             else if (ex.toString().contains("ON UPDATE CASCADE")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο αυτό είναι δανεισμένο" );
             }
+            else if (ex.toString().contains("The length is error")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος ξεπερνά τους 13 χαρακτήρες" );
+            }
+            else if (ex.toString().contains("The correct is ###-###-###-#")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-//                try {
-//                    if (db_con.connection != null) {
-//                        db_con.closeCon();
-//                    }
-//                } catch (Exception x) {
-//                }
             }
         }
         
@@ -479,7 +476,6 @@ public class bookFrame extends javax.swing.JFrame {
         nextButton.doClick();
     }//GEN-LAST:event_updateButtonActionPerformed
         
-    
     
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         String isbn=isbn_book.getText();
