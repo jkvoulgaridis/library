@@ -360,11 +360,35 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger that examine if ISBN is correct (10 digits and 3 -)
+   Create trigger ON INSERT in Book that examine if ISBN is correct (10 digits and 3 -)
 ********************************************************************************/
 DELIMITER |
  
-CREATE TRIGGER TR_ISBN_FORMAT BEFORE INSERT ON Book
+CREATE TRIGGER TR_ISBN_ON_INSERT BEFORE INSERT ON Book
+FOR EACH ROW
+BEGIN
+    /* Examine if ISBN sting lenght <> 13 */
+    IF (CHAR_LENGTH(new.ISBN) <> 13)
+    THEN
+        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN Format. The length is error ";
+    END IF;
+
+    /* Examine if ISBN format is correct. Contains only digits and - */
+    IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
+    THEN
+        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+    END IF;
+END|
+ 
+DELIMITER ;
+
+
+/*******************************************************************************
+   Create trigger ON UPDATE in Book that examine if ISBN is correct (10 digits and 3 -)
+********************************************************************************/
+DELIMITER |
+ 
+CREATE TRIGGER TR_ISBN_ON_UPDATE BEFORE UPDATE ON Book
 FOR EACH ROW
 BEGIN
     /* Examine if ISBN sting lenght <> 13 */
