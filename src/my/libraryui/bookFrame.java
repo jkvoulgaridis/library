@@ -421,7 +421,6 @@ public class bookFrame extends javax.swing.JFrame {
         try {
             Statement stmt = db_con.connection.createStatement();
             String query = "insert into Book values (\""+isbn+"\",\""+title+"\","+year+","+pages+",\""+publisher+"\");";
-            JOptionPane.showMessageDialog(null, query);
             
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Inserted a book!" );
@@ -435,6 +434,12 @@ public class bookFrame extends javax.swing.JFrame {
             else if (ex.toString().contains("The correct is ###-###-###-#")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
             }
+            else if (ex.toString().contains("Error in year")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από 1 μέχρι το τρέχον" );
+            } 
+            else if (ex.toString().contains("Error in pages")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Οι σελίδες πρέπει να είναι θετικός αριθμός" );
+            } 
             else {
                 JOptionPane.showMessageDialog(null, ex );
             }
@@ -467,6 +472,12 @@ public class bookFrame extends javax.swing.JFrame {
             else if (ex.toString().contains("The correct is ###-###-###-#")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
             }
+            else if (ex.toString().contains("Error in year")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από 1 μέχρι το τρέχον" );
+            }
+            else if (ex.toString().contains("Error in pages")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Οι σελίδες πρέπει να είναι θετικός αριθμός" );
+            } 
             else {
                 JOptionPane.showMessageDialog(null, ex );
             }

@@ -360,13 +360,17 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger ON INSERT in Book that examine if ISBN is correct (10 digits and 3 -)
+   Create trigger ON INSERT in Book that examine if ISBN, pubYear, numPages are correct
 ********************************************************************************/
 DELIMITER |
  
 CREATE TRIGGER TR_ISBN_ON_INSERT BEFORE INSERT ON Book
 FOR EACH ROW
 BEGIN
+    DECLARE curYear INT;
+    DECLARE numPages INT;
+
+
     /* Examine if ISBN sting lenght <> 13 */
     IF (CHAR_LENGTH(new.ISBN) <> 13)
     THEN
@@ -377,6 +381,19 @@ BEGIN
     IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
     THEN
         SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+    END IF;
+
+    /* Examine if year is correct */
+    SET curYear := (SELECT YEAR(CURDATE()));
+    IF ((new.pubYear <= 0) OR (new.pubYear > curYear))
+    THEN
+        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error in year. Must > 0 and < current ";
+    END IF;
+
+    /* Examine if pages is correct */
+    IF (new.numPages <= 0)
+    THEN
+        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error in pages. Must > 0";
     END IF;
 END|
  
@@ -384,13 +401,16 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger ON UPDATE in Book that examine if ISBN is correct (10 digits and 3 -)
+   Create trigger ON UPDATE in Book that examine if ISBN, pubYear and numPages are correct
 ********************************************************************************/
 DELIMITER |
  
 CREATE TRIGGER TR_ISBN_ON_UPDATE BEFORE UPDATE ON Book
 FOR EACH ROW
 BEGIN
+    DECLARE curYear INT;
+    DECLARE numPages INT;
+
     /* Examine if ISBN sting lenght <> 13 */
     IF (CHAR_LENGTH(new.ISBN) <> 13)
     THEN
@@ -401,6 +421,19 @@ BEGIN
     IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
     THEN
         SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+    END IF;
+
+    /* Examine for correct year */
+    SET curYear := (SELECT YEAR(CURDATE()));
+    IF ((new.pubYear <= 0) OR (new.pubYear > curYear))
+    THEN
+        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error in year. Must > 0 and < current ";
+    END IF;
+
+    /* Examine if pages is correct */
+    IF (new.numPages <= 0)
+    THEN
+        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error in pages. Must > 0";
     END IF;
 END|
  
