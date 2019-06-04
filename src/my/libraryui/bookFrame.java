@@ -428,16 +428,16 @@ public class bookFrame extends javax.swing.JFrame {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
-            else if (ex.toString().contains("The length is error")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος ξεπερνά τους 13 χαρακτήρες" );
+            else if (ex.toString().contains("ISBN length")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος του ISBN δεν είναι 13 χαρακτήρες" );
             }
-            else if (ex.toString().contains("The correct is ###-###-###-#")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
+            else if (ex.toString().contains("correct format")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή του ISBN είναι: ###-###-###-#" );
             }
-            else if (ex.toString().contains("Error in year")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από 1 μέχρι το τρέχον" );
-            } 
-            else if (ex.toString().contains("Error in pages")) {
+            else if (ex.toString().contains("Error! Year")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από το έτος ίδρυσης του εκδοτικού οίκου μέχρι το τρέχον" );
+            }
+            else if (ex.toString().contains("Error! Pages")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Οι σελίδες πρέπει να είναι θετικός αριθμός" );
             } 
             else {
@@ -466,16 +466,16 @@ public class bookFrame extends javax.swing.JFrame {
             else if (ex.toString().contains("ON UPDATE CASCADE")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο αυτό είναι δανεισμένο" );
             }
-            else if (ex.toString().contains("The length is error")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος ξεπερνά τους 13 χαρακτήρες" );
+            else if (ex.toString().contains("ISBN length")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος του ISBN δεν είναι 13 χαρακτήρες" );
             }
-            else if (ex.toString().contains("The correct is ###-###-###-#")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή είναι: ###-###-###-#" );
+            else if (ex.toString().contains("correct format")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! H σωστή μορφή του ISBN είναι: ###-###-###-#" );
             }
-            else if (ex.toString().contains("Error in year")) {
-                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από 1 μέχρι το τρέχον" );
+            else if (ex.toString().contains("Error! Year")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το έτος πρέπει να είναι από το έτος ίδρυσης του εκδοτικού οίκου μέχρι το τρέχον" );
             }
-            else if (ex.toString().contains("Error in pages")) {
+            else if (ex.toString().contains("Error! Pages")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Οι σελίδες πρέπει να είναι θετικός αριθμός" );
             } 
             else {

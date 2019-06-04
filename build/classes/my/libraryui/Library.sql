@@ -360,7 +360,7 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger ON INSERT in Book that examine if ISBN, pubYear, numPages are correct
+   Create trigger ON INSERT in Book that checks if ISBN, pubYear, numPages are valid
 ********************************************************************************/
 DELIMITER |
  
@@ -369,31 +369,33 @@ FOR EACH ROW
 BEGIN
     DECLARE curYear INT;
     DECLARE numPages INT;
+    DECLARE pubEstYear INT;
 
 
-    /* Examine if ISBN sting lenght <> 13 */
+    /* Check if ISBN string lenght is 13 characters */
     IF (CHAR_LENGTH(new.ISBN) <> 13)
     THEN
-        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN Format. The length is error ";
+        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN length.";
     END IF;
 
-    /* Examine if ISBN format is correct. Contains only digits and - */
+    /* Check if ISBN contains only digits and "-" */
     IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
     THEN
-        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct format is ###-###-###-#";
     END IF;
 
-    /* Examine if year is correct */
+    /* Check if year is valid */
     SET curYear := (SELECT YEAR(CURDATE()));
-    IF ((new.pubYear <= 0) OR (new.pubYear > curYear))
+    SET pubEstYear := (SELECT p.estYear FROM Publisher as p WHERE new.pubName = p.pubName);
+    IF ((new.pubYear < pubEstYear) OR (new.pubYear > curYear))
     THEN
-        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error in year. Must > 0 and < current ";
+        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error! Year must be greater than publisher's establishment year and less than 2019.";
     END IF;
 
-    /* Examine if pages is correct */
+    /* Check if pages are valid */
     IF (new.numPages <= 0)
     THEN
-        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error in pages. Must > 0";
+        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error in pages. Must be a postitive number.";
     END IF;
 END|
  
@@ -410,33 +412,67 @@ FOR EACH ROW
 BEGIN
     DECLARE curYear INT;
     DECLARE numPages INT;
+    DECLARE pubEstYear INT;
 
-    /* Examine if ISBN sting lenght <> 13 */
+    /* Check if ISBN string lenght is 13 characters */
     IF (CHAR_LENGTH(new.ISBN) <> 13)
     THEN
-        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN Format. The length is error ";
+        SIGNAL SQLSTATE "03001" SET MESSAGE_TEXT = "Error in ISBN length";
     END IF;
 
-    /* Examine if ISBN format is correct. Contains only digits and - */
+    /* Check if ISBN contains only digits and "-" */
     IF NOT (SELECT new.ISBN REGEXP '^[-]|[0-9]$')
     THEN
-        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct is ###-###-###-#";
+        SIGNAL SQLSTATE "03002" SET MESSAGE_TEXT = "Error in ISBN Format. The correct format is ###-###-###-#";
     END IF;
 
-    /* Examine for correct year */
+    /* Check if year is valid */
     SET curYear := (SELECT YEAR(CURDATE()));
-    IF ((new.pubYear <= 0) OR (new.pubYear > curYear))
+    SET pubEstYear := (SELECT p.estYear FROM Publisher as p WHERE new.pubName = p.pubName);
+    IF ((new.pubYear < pubEstYear) OR (new.pubYear > curYear))
     THEN
-        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error in year. Must > 0 and < current ";
+        SIGNAL SQLSTATE "03003" SET MESSAGE_TEXT = "Error! Year must be greater than publisher's establishment year and less than 2019.";
     END IF;
 
-    /* Examine if pages is correct */
+    /* Check if pages are valid */
     IF (new.numPages <= 0)
     THEN
-        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error in pages. Must > 0";
+        SIGNAL SQLSTATE "03004" SET MESSAGE_TEXT = "Error! Pages must be a postitive number.";
     END IF;
 END|
  
+DELIMITER ;
+
+
+/*******************************************************************************
+   Create trigger that checks copyNr and Shelf in Copies on insert
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_COPIES_INSERT BEFORE INSERT ON Copies
+FOR EACH ROW
+BEGIN
+    IF (new.copyNr <= 0 OR new.shelf <= 0)
+    THEN
+        SIGNAL SQLSTATE "03005" SET MESSAGE_TEXT = "Error! Copy Number and Shelf must be postitive numbers.";
+    END IF;
+END|
+
+DELIMITER ;
+
+
+/*******************************************************************************
+   Create trigger that checks copyNr and Shelf in Copies on update
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_COPIES_UPDATE BEFORE UPDATE ON Copies
+FOR EACH ROW
+BEGIN
+    IF (new.copyNr <= 0 OR new.shelf <= 0)
+    THEN
+        SIGNAL SQLSTATE "03005" SET MESSAGE_TEXT = "Error! Copy Number and Shelf must be postitive numbers.";
+    END IF;
+END|
+
 DELIMITER ;
 
 

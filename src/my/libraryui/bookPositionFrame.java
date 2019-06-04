@@ -311,15 +311,11 @@ public class bookPositionFrame extends javax.swing.JFrame {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("Error! Copy")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Ο αριθμός του ραφιού πρέπει να είναι θετικός αριθμός." );
+            } 
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-//                try {
-//                    if (db_con.connection != null) {
-//                        db_con.closeCon();
-//                    }
-//                } catch (Exception x) {
-//                }
             }
         }
         
