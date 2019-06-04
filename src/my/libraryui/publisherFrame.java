@@ -291,7 +291,6 @@ public class publisherFrame extends javax.swing.JFrame {
                     postal_code_publisher.setText(result_set.getString("postalCode"));
                     NAME = name_publisher.getText();
                 } else {
-                    //  result_set = null;
                     nextButton.setEnabled(false);
                 }
             }
@@ -320,7 +319,6 @@ public class publisherFrame extends javax.swing.JFrame {
                     NAME = name_publisher.getText();
                 } else {
                     previousButton.setEnabled(false);
-                    //result_set = null;
                 }
             }
         } catch (Exception ex) {
@@ -336,6 +334,7 @@ public class publisherFrame extends javax.swing.JFrame {
         street_publisher.setText("");
         number_publisher.setText("");
         postal_code_publisher.setText(""); 
+        name_publisher.requestFocus();
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
@@ -346,26 +345,22 @@ public class publisherFrame extends javax.swing.JFrame {
         String postal = postal_code_publisher.getText();
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "insert into Publisher values ( \""+name+"\" , "+year+", \""+street+"\" , "+number+" , "+postal+");";
+            String query = "insert into Publisher values ( \""+name+"\" , "+year+", \""+street+"\" , \""+number+"\" , "+postal+");";
             stmt.executeUpdate(query);  
             JOptionPane.showMessageDialog(null, "Inserted a new Publisher!" );
+            result_set = null;
+            newButton.doClick();
         } catch (Exception ex) {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("\"\"")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-//                try {
-//                    if (db_con.connection != null) {
-//                        db_con.closeCon();
-//                    }
-//                } catch (Exception x) {
-//                }
             }
         }       
-        result_set = null;
-        newButton.doClick();
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -377,7 +372,7 @@ public class publisherFrame extends javax.swing.JFrame {
         
          try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "update Publisher set pubName = \""+Pname+"\", estYear = "+year+",street=\""+street+"\" , snumber="+number+" , postalCode="+postal+" where pubName=\""+NAME+"\";";
+            String query = "update Publisher set pubName = \""+Pname+"\", estYear = "+year+",street=\""+street+"\" , snumber=\""+number+"\" , postalCode="+postal+" where pubName=\""+NAME+"\";";
             stmt.executeUpdate(query);   
             JOptionPane.showMessageDialog(null, "Updated  Publisher!" );
         } catch (Exception ex) {
@@ -386,13 +381,6 @@ public class publisherFrame extends javax.swing.JFrame {
             }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-//                try {
-//                    if (db_con.connection != null) {
-//                        db_con.closeCon();
-//                    }
-//                } catch (Exception x) {
-//                }
             }
         }
           result_set = null;

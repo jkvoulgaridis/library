@@ -5,6 +5,7 @@
  */
 package my.libraryui;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -20,6 +21,8 @@ public class memberFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null); // Align window on screen center  
         insertButton.setEnabled(false);
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) birth_member.getDateEditor();
+        editor.setEditable(false);
         try{
          if (result_set == null) {
                 fetchResultSet();
@@ -382,6 +385,7 @@ public class memberFrame extends javax.swing.JFrame {
         number_member.setText("");
         postal_member.setText("");
         ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText("");
+        first_member.requestFocus();
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
@@ -394,26 +398,23 @@ public class memberFrame extends javax.swing.JFrame {
             String bb = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
             
             Statement stmt = db_con.connection.createStatement();
-            String query = "insert into Member (MFirst, MLast, Street, Snumber, PostalCode, Mbirthdate) values (\""+first+"\", \""+last+"\" , \""+street+"\" ,"+number+", "+postal+",\""+bb+"\");";
+            String query = "insert into Member (MFirst, MLast, Street, Snumber, PostalCode, Mbirthdate) values (\""+first+"\", \""+last+"\" , \""+street+"\" ,\""+number+"\", "+postal+",\""+bb+"\");";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Inserted a new Member!" );
+            result_set = null;
+            newButton.doClick();
         } catch (Exception ex) {
             if (ex.toString().contains("field") || ex.toString().contains("'Mbirthdate'")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("\"\"")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-                /*try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }*/
             }
         }       
-        result_set = null;
-        newButton.doClick();
+
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -426,7 +427,7 @@ public class memberFrame extends javax.swing.JFrame {
             String bb  = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
 
             Statement stmt = db_con.connection.createStatement();
-            String query = "update Member set MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber="+number+", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
+            String query = "update Member set MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber=\""+number+"\", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
             stmt.executeUpdate(query);  
             JOptionPane.showMessageDialog(null, "Updated a new Member!" );
         } catch (Exception ex) {
@@ -435,13 +436,6 @@ public class memberFrame extends javax.swing.JFrame {
             }
             else {
                 JOptionPane.showMessageDialog(null, ex );
-
-                /*try {
-                    if (db_con.connection != null) {
-                        db_con.closeCon();
-                    }
-                } catch (Exception x) {
-                }*/
             }
         }       
         result_set = null;

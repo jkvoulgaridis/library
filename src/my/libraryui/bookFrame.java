@@ -359,7 +359,6 @@ public class bookFrame extends javax.swing.JFrame {
                     insertButton.setEnabled(false);
 
                 } else {
-                  //  result_set = null;
                     nextButton.setEnabled(false);
                 }
             }
@@ -412,6 +411,7 @@ public class bookFrame extends javax.swing.JFrame {
         title_book.setText("");
         year_book.setText("");
         pages_book.setText("");
+        isbn_book.requestFocus();
     }//GEN-LAST:event_newButtonActionPerformed
 
     
@@ -424,6 +424,8 @@ public class bookFrame extends javax.swing.JFrame {
             
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Inserted a book!" );
+            newButton.doClick();
+            result_set = null;
         } catch (Exception ex) {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
@@ -439,14 +441,14 @@ public class bookFrame extends javax.swing.JFrame {
             }
             else if (ex.toString().contains("Error! Pages")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Οι σελίδες πρέπει να είναι θετικός αριθμός" );
-            } 
+            }
+            else if (ex.toString().contains("\"\"")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
             }
         }
-        
-        result_set = null;
-        newButton.doClick();
     }//GEN-LAST:event_insertButtonActionPerformed
 
     
