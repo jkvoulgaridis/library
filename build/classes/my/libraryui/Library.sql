@@ -445,7 +445,7 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger that checks copyNr and Shelf in Copies on insert
+   Create trigger that checks copyNr and Shelf in Copies before insert
 ********************************************************************************/
 DELIMITER |
 CREATE TRIGGER TR_COPIES_INSERT BEFORE INSERT ON Copies
@@ -461,7 +461,7 @@ DELIMITER ;
 
 
 /*******************************************************************************
-   Create trigger that checks copyNr and Shelf in Copies on update
+   Create trigger that checks copyNr and Shelf in Copies before update
 ********************************************************************************/
 DELIMITER |
 CREATE TRIGGER TR_COPIES_UPDATE BEFORE UPDATE ON Copies
@@ -470,6 +470,37 @@ BEGIN
     IF (new.copyNr <= 0 OR new.shelf <= 0)
     THEN
         SIGNAL SQLSTATE "03005" SET MESSAGE_TEXT = "Error! Copy Number and Shelf must be postitive numbers.";
+    END IF;
+END|
+
+DELIMITER ;
+
+/*******************************************************************************
+   Create trigger that checks if date of reminder is later than date of borrowing before insert
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_REMINDER_DATE_INSERT BEFORE INSERT ON Reminder
+FOR EACH ROW
+BEGIN
+    IF (new.date_of_borrowing > new.date_of_reminder)
+    THEN
+        SIGNAL SQLSTATE "03006" SET MESSAGE_TEXT = "Error! Reminder date must be later than borrowing date.";
+    END IF;
+END|
+
+DELIMITER ;
+
+
+/*******************************************************************************
+   Create trigger that checks if date of reminder is later than date of borrowing before update
+********************************************************************************/
+DELIMITER |
+CREATE TRIGGER TR_REMINDER_DATE_UPDATE BEFORE UPDATE ON Reminder
+FOR EACH ROW
+BEGIN
+    IF (new.date_of_borrowing > new.date_of_reminder)
+    THEN
+        SIGNAL SQLSTATE "03006" SET MESSAGE_TEXT = "Error! Reminder date must be later than borrowing date.";
     END IF;
 END|
 
