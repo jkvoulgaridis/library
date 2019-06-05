@@ -54,7 +54,7 @@ CREATE TABLE Member
 
 CREATE TABLE Book
 (
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     title NVARCHAR(120) NOT NULL,
     pubYear INT,
     numPages INT,
@@ -86,7 +86,7 @@ CREATE TABLE Category
 
 CREATE TABLE Copies
 (
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     copyNr INT,
     shelf INT,
     
@@ -138,7 +138,7 @@ CREATE TABLE Temporary_Employee
 CREATE TABLE Borrows
 (
     memberID INT NOT NULL,
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     copyNr INT,
     date_of_borrowing DATE,
     date_of_return DATE,
@@ -149,7 +149,7 @@ CREATE TABLE Borrows
 
 CREATE TABLE Belongs_to
 (
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     categoryName NVARCHAR(80) NOT NULL,
 
     CONSTRAINT PK_ic PRIMARY KEY (ISBN,categoryName)
@@ -160,7 +160,7 @@ CREATE TABLE Reminder
 (
     empID INT,
     memberID INT NOT NULL,
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     copyNr INT,
     date_of_borrowing DATE,
     date_of_reminder DATE,
@@ -171,7 +171,7 @@ CREATE TABLE Reminder
 
 CREATE TABLE Written_by
 (
-    ISBN VARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(15) NOT NULL,
     authID INT NOT NULL,
 
     CONSTRAINT PK_ia PRIMARY KEY (ISBN,authID)
@@ -513,7 +513,7 @@ DELIMITER ;
 INSERT INTO Publisher VALUES("ΓΚΙΟΥΡΔΑΣ",1932,"Βαλτετσίου","90",16885);
 INSERT INTO Publisher VALUES("ΚΕΔΡΟΣ",1984,"Βάρναλη Κώστα","171",16872);
 INSERT INTO Publisher VALUES("ΚΛΕΙΔΑΡΙΘΜΟΣ",1977,"Βενιζέλου Ελευθέριου","93",16514);
-INSERT INTO Publisher VALUES("ΒΙΒΛΙΟΝΕΤ",1996,"Βεργίνας","148",16611);
+INSERT INTO Publisher VALUES("ΣΥΜΜΕΤΡΙΑ",1996,"Βεργίνας","148",16611);
 INSERT INTO Publisher VALUES("ΜΕΤΑΙΧΜΙΟ",1980,"Βορρά","57",16949);
 INSERT INTO Publisher VALUES("ΕΛΕΥΘΕΡΟΥΔΑΚΗΣ",1949,"Γαρδένιας","184",16848);
 INSERT INTO Publisher VALUES("ΠΑΠΑΣΩΤΗΡΙΟΥ",1978,"Γενναδίου","172",16509);
@@ -678,25 +678,25 @@ INSERT INTO Copies VALUES ("960–538–174–4",4,2);
 /*******************************************************************************
    Insert data into Borrows table
 ********************************************************************************/
-INSERT INTO Borrows VALUES (1,"960–538–175–7",1,"2019-05-05",NULL);
-INSERT INTO Borrows VALUES (2,"960–538–174–1", 1,"2019-05-06",NULL);
-INSERT INTO Borrows VALUES (1,"960–538–175–1",1,"2019-05-01",NULL);
-INSERT INTO Borrows VALUES (3,"960–538–175–2",1,"2019-05-10",NULL);
-INSERT INTO Borrows VALUES (4,"960–538–174–3", 1,"2019-05-12",NULL);
-INSERT INTO Borrows VALUES (5,"960–538–175–4",1,"2019-05-13",NULL);
-INSERT INTO Borrows VALUES (6,"960–538–175–7",2,"2019-05-14",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–3", 2,"2019-05-15",NULL);
-INSERT INTO Borrows VALUES (7,"960–538–174–4", 1,"2019-05-15",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–7",1,"2019-05-30",NULL);
 INSERT INTO Borrows VALUES (1,"960–538–175–2",3,"2019-05-20",NULL);
 INSERT INTO Borrows VALUES (1,"960–538–175–5",3,"2019-05-20",NULL);
 INSERT INTO Borrows VALUES (1,"960–538–175–7",3,"2019-05-20",NULL);
+INSERT INTO Borrows VALUES (1,"960–538–175–1",1,"2019-05-24",NULL);
+INSERT INTO Borrows VALUES (2,"960–538–174–1",1,"2019-06-02",NULL);
+INSERT INTO Borrows VALUES (3,"960–538–175–2",1,"2019-06-01",NULL);
+INSERT INTO Borrows VALUES (4,"960–538–174–3",1,"2019-05-14",NULL);
+INSERT INTO Borrows VALUES (5,"960–538–175–4",1,"2019-05-23",NULL);
+INSERT INTO Borrows VALUES (6,"960–538–175–7",2,"2019-06-04",NULL);
+INSERT INTO Borrows VALUES (7,"960–538–174–3",2,"2019-05-15","2019-05-25");
+INSERT INTO Borrows VALUES (7,"960–538–174–4",1,"2019-05-15",NULL);
 
 
 /*******************************************************************************
    Insert data into Reminder table
 ********************************************************************************/
-INSERT INTO Reminder VALUES (1,2,"960–538–174–1",1,"2019-05-06","2019-05-15");
-INSERT INTO Reminder VALUES (4,3,"960–538–175–2",1,"2019-05-10","2019-05-15");
+INSERT INTO Reminder VALUES (1,2,"960–538–174–1",1,"2019-06-02","2019-06-04");
+INSERT INTO Reminder VALUES (4,3,"960–538–175–2",1,"2019-06-01","2019-06-04");
 
 
 /*******************************************************************************
