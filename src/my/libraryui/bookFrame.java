@@ -430,6 +430,9 @@ public class bookFrame extends javax.swing.JFrame {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο με αυτό το ISBN ήδη υπάρχει" );
+            }
             else if (ex.toString().contains("ISBN length")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος του ISBN δεν είναι 13 χαρακτήρες" );
             }
@@ -470,6 +473,9 @@ public class bookFrame extends javax.swing.JFrame {
             }
             else if (ex.toString().contains("ON UPDATE CASCADE")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο αυτό είναι δανεισμένο" );
+            }
+            else if (ex.toString().contains("duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Το βιβλίο με αυτό το ISBN ήδη υπάρχει" );
             }
             else if (ex.toString().contains("ISBN length")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Το μήκος του ISBN δεν είναι 13 χαρακτήρες" );

@@ -29,6 +29,7 @@ public class memberFrame extends javax.swing.JFrame {
             }
             if (result_set != null) {
                 if (result_set.first()) {
+                    id_member.setText(result_set.getString("memberID"));
                     first_member.setText(result_set.getString("MFirst"));
                     last_member.setText(result_set.getString("MLast"));
                     street_member.setText(result_set.getString("Street"));
@@ -67,6 +68,8 @@ public class memberFrame extends javax.swing.JFrame {
         postal_member = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         birth_member = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        id_member = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         previousButton = new javax.swing.JButton();
@@ -104,13 +107,20 @@ public class memberFrame extends javax.swing.JFrame {
 
         birth_member.setDateFormatString("yyyy-MM-dd");
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Member ID");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(id_member, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -142,8 +152,12 @@ public class memberFrame extends javax.swing.JFrame {
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(id_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(first_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,7 +181,7 @@ public class memberFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(birth_member, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {birth_member, first_member, last_member, number_member, postal_member, street_member});
@@ -287,10 +301,10 @@ public class memberFrame extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -328,6 +342,7 @@ public class memberFrame extends javax.swing.JFrame {
                 if (previousButton.isEnabled() == false)
                     previousButton.setEnabled(true);
                 if (result_set.next()) {
+                    id_member.setText(result_set.getString("memberID"));
                     first_member.setText(result_set.getString("MFirst"));
                     last_member.setText(result_set.getString("MLast"));
                     street_member.setText(result_set.getString("Street"));
@@ -357,6 +372,7 @@ public class memberFrame extends javax.swing.JFrame {
                     nextButton.setEnabled(true);
                 
                 if (result_set.previous()) {
+                    id_member.setText(result_set.getString("memberID"));
                     first_member.setText(result_set.getString("MFirst"));
                     last_member.setText(result_set.getString("MLast"));
                     street_member.setText(result_set.getString("Street"));
@@ -377,16 +393,18 @@ public class memberFrame extends javax.swing.JFrame {
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
         insertButton.setEnabled(true);
         updateButton.setEnabled(false);
+        id_member.setText("");
         first_member.setText("");
         last_member.setText("");
         street_member.setText("");
         number_member.setText("");
         postal_member.setText("");
         ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText("");
-        first_member.requestFocus();
+        id_member.requestFocus();
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String id = id_member.getText();
         String first = first_member.getText();
         String last = last_member.getText();
         String street = street_member.getText();
@@ -396,7 +414,7 @@ public class memberFrame extends javax.swing.JFrame {
             String bb = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
             
             Statement stmt = db_con.connection.createStatement();
-            String query = "insert into Member (MFirst, MLast, Street, Snumber, PostalCode, Mbirthdate) values (\""+first+"\", \""+last+"\" , \""+street+"\" ,\""+number+"\", "+postal+",\""+bb+"\");";
+            String query = "insert into Member values ("+id+", \""+first+"\", \""+last+"\" , \""+street+"\" ,\""+number+"\", "+postal+",\""+bb+"\");";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Inserted a new Member!" );
             result_set = null;
@@ -404,6 +422,9 @@ public class memberFrame extends javax.swing.JFrame {
         } catch (Exception ex) {
             if (ex.toString().contains("field") || ex.toString().contains("'Mbirthdate'")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else if (ex.toString().contains("Duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Υπάρχει ήδη μέλος με αυτό το member ID" );
             }
             else if (ex.toString().contains("\"\"")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
@@ -416,6 +437,7 @@ public class memberFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        String id = id_member.getText();
         String first = first_member.getText();
         String last = last_member.getText();
         String street = street_member.getText();
@@ -425,12 +447,15 @@ public class memberFrame extends javax.swing.JFrame {
             String bb  = ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).getText();
 
             Statement stmt = db_con.connection.createStatement();
-            String query = "update Member set MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber=\""+number+"\", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
+            String query = "update Member set memberID="+id+", MFirst=\""+first+"\" , MLast =\""+last+"\" , Street=\""+street+"\", Snumber=\""+number+"\", PostalCode= "+postal+" , Mbirthdate=\""+bb+"\" where memberID="+ID+";";
             stmt.executeUpdate(query);  
             JOptionPane.showMessageDialog(null, "Updated a new Member!" );
         } catch (Exception ex) {
             if (ex.toString().contains("field") || ex.toString().contains("'Mbirthdate'")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else if (ex.toString().contains("Duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Υπάρχει ήδη μέλος με αυτό το member ID" );
             }
             else {
                 JOptionPane.showMessageDialog(null, ex );
@@ -443,7 +468,7 @@ public class memberFrame extends javax.swing.JFrame {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
             Statement stmt = db_con.connection.createStatement();
-            String query = "DELETE FROM Member WHERE memberID = '"+ID+"';";
+            String query = "DELETE FROM Member WHERE memberID = '"+id_member.getText()+"';";
             stmt.executeUpdate(query);
             
             result_set = null;
@@ -506,6 +531,7 @@ public class memberFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField first_member;
+    private javax.swing.JTextField id_member;
     private javax.swing.JButton insertButton;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
@@ -515,6 +541,7 @@ public class memberFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField last_member;

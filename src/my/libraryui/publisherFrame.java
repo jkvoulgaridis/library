@@ -354,6 +354,9 @@ public class publisherFrame extends javax.swing.JFrame {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
             }
+            else if (ex.toString().contains("Duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Ο εκδοτικός οίκος αυτός ήδη υπάρχει" );
+            }
             else if (ex.toString().contains("\"\"")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
             }
@@ -378,6 +381,9 @@ public class publisherFrame extends javax.swing.JFrame {
         } catch (Exception ex) {
             if (ex.toString().contains("field")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Λάθος τύπος στοιχείων" );
+            }
+            else if (ex.toString().contains("Duplicate")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Ο εκδοτικός οίκος αυτός ήδη υπάρχει" );
             }
             else {
                 JOptionPane.showMessageDialog(null, ex );
