@@ -337,7 +337,6 @@ public class memberFrame extends javax.swing.JFrame {
                     ((javax.swing.JTextField)birth_member.getDateEditor().getUiComponent()).setText(bb);
                     ID = Integer.parseInt(result_set.getString("memberID"));
                 } else {
-                    //  result_set = null;
                     nextButton.setEnabled(false);
                 }
             }
@@ -368,7 +367,6 @@ public class memberFrame extends javax.swing.JFrame {
                     ID = Integer.parseInt(result_set.getString("memberID"));
                 } else {
                     previousButton.setEnabled(false);
-                    //result_set = null;
                 }
             }
         } catch (Exception ex) {
@@ -455,6 +453,9 @@ public class memberFrame extends javax.swing.JFrame {
         catch (Exception ex) {
             if (ex.toString().contains("delete")) {
                 JOptionPane.showMessageDialog(null, "Το μέλος έχει δανεισμένα βιβλία.\n Δεν μπορεί να διαγραφεί!" );
+            }
+            else if (ex.toString().contains("\"\"")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
             }
             else
                 JOptionPane.showMessageDialog(null, ex );

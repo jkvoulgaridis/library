@@ -445,6 +445,9 @@ public class bookFrame extends javax.swing.JFrame {
             else if (ex.toString().contains("\"\"")) {
                 JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
             }
+            else if (isbn.equals("")) {
+                JOptionPane.showMessageDialog(null, "Σφάλμα! Τα πεδία πρέπει να είναι συμπληρωμένα." );
+            }
             else {
                 JOptionPane.showMessageDialog(null, ex );
             }

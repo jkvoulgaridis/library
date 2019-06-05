@@ -54,7 +54,7 @@ CREATE TABLE Member
 
 CREATE TABLE Book
 (
-    ISBN NVARCHAR(15) NOT NULL,
+    ISBN NVARCHAR(20) NOT NULL,
     title NVARCHAR(120) NOT NULL,
     pubYear INT,
     numPages INT,
@@ -316,7 +316,7 @@ ALTER TABLE Written_by ADD CONSTRAINT FK_WRITTENBY_authid
     FOREIGN KEY (authID) REFERENCES Author (authID)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
-    
+
     
 /*******************************************************************************
    Create trigger that permits members to borrow books if they are not eligible
