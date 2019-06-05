@@ -182,6 +182,7 @@ CREATE TABLE Written_by
    Create Unique Indexes
 ********************************************************************************/
 CREATE INDEX INX_memberID ON Member (memberID);
+CREATE INDEX INX_pubName_Book ON Book (pubName);
 CREATE INDEX INX_isbn ON Book (ISBN);
 CREATE INDEX INX_authID ON Author (authID);
 CREATE INDEX INX_ISBN_copyNr ON Copies (ISBN, copyNr);
