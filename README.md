@@ -1,8 +1,9 @@
 # library
 
-# Authors:	Βεκράκης Εμμανουήλ - 03116068
-#		Βουλγαρίδης Ιωάννης - 03116151
-#		Γιαννιός Γεώργιος-Ταξιάρχης - 03116156
+# Authors:	
+#   Vekrakis Emmanouil
+#		Voulgaridis Ioannis
+#		Giannios Geiorgios-Taxiarchis
 
 Library DataBase and UI for Databases course
 
