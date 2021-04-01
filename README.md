@@ -1,9 +1,11 @@
 # Library Database Management System
 
 # Authors:	
-###   Vekrakis Emmanouil
-###		Voulgaridis Ioannis
-###		Giannios Geiorgios-Taxiarchis
+####    [Vekrakis Emmanouil](https://github.com/manosvek)
+####		[John Voulgaridis](https://github.com/jkvoulgaridis)
+####		[George Giannios](https://github.com/gianniosgeorgios)
+
+---
 
 Library DataBase and UI Management System on Java and MySQL for Databases course
 
